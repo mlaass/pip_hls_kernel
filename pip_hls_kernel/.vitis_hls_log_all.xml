@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog/>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="pip_hls_kernel" solutionName="solution1" date="2022-04-28T16:50:27.694+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 214-183] Unsupport array of struct: array_partition pragma on TOP function argument, in 'call' (pip_kernel.cpp:103:9)" projectName="pip_hls_kernel" solutionName="solution1" date="2022-04-28T16:40:52.255+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 214-183] Unsupport array of struct: array_partition pragma on TOP function argument, in 'call' (pip_kernel.cpp:101:3)" projectName="pip_hls_kernel" solutionName="solution1" date="2022-04-28T16:40:52.253+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-40] Cannot find library 'xilinx/Virtex UltraScale+/Virtex UltraScale+_fpv7'." projectName="pip_hls_kernel" solutionName="solution1" date="2022-04-28T16:40:39.138+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-40] Cannot find library '/mnt/G/Xilinx/Vitis/2020.1/common/technology/xilinx/Virtex UltraScale+/Virtex UltraScale+_fpv7.lib'." projectName="pip_hls_kernel" solutionName="solution1" date="2022-04-28T16:40:37.849+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-40] Cannot find library 'xilinx/Virtex UltraScale+/Virtex UltraScale+'." projectName="pip_hls_kernel" solutionName="solution1" date="2022-04-28T16:40:37.848+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-40] Cannot find library '/mnt/G/Xilinx/Vitis/2020.1/common/technology/xilinx/Virtex UltraScale+/Virtex UltraScale+.lib'." projectName="pip_hls_kernel" solutionName="solution1" date="2022-04-28T16:40:37.845+0200" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="pip_kernel.cpp" path="/home/moritz/workspace/pip_hls_kernel/pip_kernel.cpp"/>
+    <originFiles name="pip_kernel.cpp" path="/home/moritz/workspace/pip_hls_kernel/pip_kernel.cpp"/>
+  </source>
+  <testbench>
+    <originFiles name="test_pip_kernel.cpp" path="/home/moritz/workspace/pip_hls_kernel/test_pip_kernel.cpp"/>
+    <originFiles name="test_pip_kernel.cpp" path="/home/moritz/workspace/pip_hls_kernel/test_pip_kernel.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>
