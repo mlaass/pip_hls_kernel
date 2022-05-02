@@ -14,7 +14,27 @@
 						"AP_START": { "actual": "ap_start"}
 					}
 				},
-				"grp_pip_crossing2_fu_6857/grp_pip_crossing2_fu_6857_activity": {
+				"grp_pip_edges_fu_130/grp_pip_crossing2_fu_970/grp_pip_crossing2_fu_970_activity": {
+					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
+					"ports": {
+						"AP_CLK": { "actual": "ap_clk"},
+						"AP_DONE": { "actual": "ap_done"},
+						"AP_READY": { "actual": "ap_ready"},
+						"AP_RESET": { "actual": "ap_rst"},
+						"AP_START": { "actual": "ap_start"}
+					}
+				},
+				"grp_pip_edges_fu_130/grp_pip_edges_fu_130_activity": {
+					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
+					"ports": {
+						"AP_CLK": { "actual": "ap_clk"},
+						"AP_DONE": { "actual": "ap_done"},
+						"AP_READY": { "actual": "ap_ready"},
+						"AP_RESET": { "actual": "ap_rst"},
+						"AP_START": { "actual": "ap_start"}
+					}
+				},
+				"grp_pip_kernel_Pipeline_LOOP_INIT_DIV_TABLE_fu_124/grp_pip_kernel_Pipeline_LOOP_INIT_DIV_TABLE_fu_124_activity": {
 					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
 					"ports": {
 						"AP_CLK": { "actual": "ap_clk"},

@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# xsim v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Mon May  2 16:43:10 2022
+# Process ID: 4392
+# Current directory: C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/sim/vhdl
+# Command line: xsim.exe -mode tcl -source {xsim.dir/pip_kernel/xsim_script.tcl}
+# Log file: C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/sim/vhdl/xsim.log
+# Journal file: C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/sim/vhdl\xsim.jou
+# Running On: DESKTOP-CL9AKVQ, OS: Windows, CPU Frequency: 2895 MHz, CPU Physical cores: 16, Host memory: 33735 MB
+#-----------------------------------------------------------
+source xsim.dir/pip_kernel/xsim_script.tcl
+source pip_kernel.tcl

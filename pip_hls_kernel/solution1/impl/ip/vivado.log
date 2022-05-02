@@ -1,0 +1,18 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Mon May  2 16:45:19 2022
+# Process ID: 12664
+# Current directory: C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip
+# Command line: vivado.exe -notrace -mode batch -source run_ippack.tcl
+# Log file: C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip/vivado.log
+# Journal file: C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip\vivado.jou
+# Running On: DESKTOP-CL9AKVQ, OS: Windows, CPU Frequency: 2895 MHz, CPU Physical cores: 16, Host memory: 33735 MB
+#-----------------------------------------------------------
+source run_ippack.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2022.1/data/ip'.
+Running package_xo -xo_path C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/export.xo -kernel_name pip_kernel -kernel_xml C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip/../kernel/kernel.xml -kernel_files C:/Users/fpga/workspace/pip_hls_kernel/pip_kernel.cpp -ip_directory C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip/ip_unzip_dir -design_xml C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/.autopilot/db/pip_kernel.design.xml -debug_directory C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/.debug -hls_directory C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip/hls_files
+INFO: [Common 17-206] Exiting Vivado at Mon May  2 16:45:31 2022...

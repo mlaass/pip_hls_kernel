@@ -1,115 +1,49 @@
-INFO: [HLS 200-10] Running '/mnt/G/Xilinx/Vitis/2020.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'moritz' on host 'moritz-XMG' (Linux_x86_64 version 5.13.0-40-generic) on Thu Apr 28 16:40:37 CEST 2022
-INFO: [HLS 200-10] In directory '/home/moritz/workspace/pip_hls_kernel'
-Sourcing Tcl script '/home/moritz/workspace/pip_hls_kernel/pip_hls_kernel/solution1/csynth.tcl'
-INFO: [HLS 200-10] Opening project '/home/moritz/workspace/pip_hls_kernel/pip_hls_kernel'.
+INFO: [HLS 200-10] Running 'C:/Xilinx/Vitis_HLS/2022.1/bin/unwrapped/win64.o/vitis_hls.exe'
+INFO: [HLS 200-10] For user 'fpga' on host 'desktop-cl9akvq' (Windows NT_amd64 version 6.2) on Mon May 02 16:45:12 +0200 2022
+INFO: [HLS 200-10] In directory 'C:/Users/fpga/workspace/pip_hls_kernel'
+Sourcing Tcl script 'C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/export.tcl'
+INFO: [HLS 200-1510] Running: source C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/export.tcl
+INFO: [HLS 200-1510] Running: open_project pip_hls_kernel 
+INFO: [HLS 200-10] Opening project 'C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel'.
+INFO: [HLS 200-1510] Running: set_top pip_kernel 
+INFO: [HLS 200-1510] Running: add_files pip_kernel.cpp 
 INFO: [HLS 200-10] Adding design file 'pip_kernel.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb test_pip_kernel.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
 INFO: [HLS 200-10] Adding test bench file 'test_pip_kernel.cpp' to the project
-INFO: [HLS 200-10] Opening solution '/home/moritz/workspace/pip_hls_kernel/pip_hls_kernel/solution1'.
+INFO: [HLS 200-1510] Running: open_solution solution1 -flow_target vitis 
+INFO: [HLS 200-10] Opening solution 'C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1'.
 INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
-WARNING: [HLS 200-40] Cannot find library '/mnt/G/Xilinx/Vitis/2020.1/common/technology/xilinx/Virtex UltraScale+/Virtex UltraScale+.lib'.
-WARNING: [HLS 200-40] Cannot find library 'xilinx/Virtex UltraScale+/Virtex UltraScale+'.
-WARNING: [HLS 200-40] Cannot find library '/mnt/G/Xilinx/Vitis/2020.1/common/technology/xilinx/Virtex UltraScale+/Virtex UltraScale+_fpv7.lib'.
-WARNING: [HLS 200-40] Cannot find library 'xilinx/Virtex UltraScale+/Virtex UltraScale+_fpv7'.
-INFO: [HLS 200-10] Setting target device to 'xcvu11p-flga2577-1-e'
+INFO: [HLS 200-1611] Setting target device to 'xczu9eg-ffvb1156-2-e'
 INFO: [HLS 200-1505] Using flow_target 'vitis'
-Resolution: For help on HLS 200-1505 see www.xilinx.com/html_docs/xilinx2020_1/hls-guidance/200-1505.html
-INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=64
-INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_alignment_byte_size=64
-INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_max_widen_bitwidth=512
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
 INFO: [HLS 200-1464] Running solution command: config_interface -default_interface=kernel
 INFO: [HLS 200-1464] Running solution command: config_interface -default_slave_interface=s_axilite
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_alignment_byte_size=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_max_widen_bitwidth=512
 INFO: [HLS 200-1464] Running solution command: config_rtl -register_reset_num=3
-INFO: [HLS 200-10] Analyzing design file 'pip_kernel.cpp' ... 
-INFO: [HLS 200-777] Using interface defaults for 'Vitis' target.
-INFO: [HLS 214-131] Inlining function 'hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>::read(ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>&)' into 'hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>::read()' (/mnt/G/Xilinx/Vitis/2020.1/common/technology/autopilot/hls_stream_39.h:156:9)
-INFO: [HLS 214-131] Inlining function 'hls::stream<ap_uint<8>, 0>::write(ap_uint<8> const&)' into 'hls::stream<ap_uint<8>, 0>::operator<<(ap_uint<8> const&)' (/mnt/G/Xilinx/Vitis/2020.1/common/technology/autopilot/hls_stream_39.h:129:9)
-INFO: [HLS 214-131] Inlining function 'hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>::read()' into 'pip_kernel(hls::stream<ap_uint<8>, 0>&, hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>&, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, unsigned short)' (pip_kernel.cpp:112:14)
-INFO: [HLS 214-131] Inlining function 'hls::stream<ap_uint<8>, 0>::operator<<(ap_uint<8> const&)' into 'pip_kernel(hls::stream<ap_uint<8>, 0>&, hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>&, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, unsigned short)' (pip_kernel.cpp:115:6)
-INFO: [HLS 214-131] Inlining function 'pip_edges(ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*)' into 'pip_kernel(hls::stream<ap_uint<8>, 0>&, hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>&, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, unsigned short)' (pip_kernel.cpp:115:9)
-INFO: [HLS 214-131] Inlining function 'hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>::read()' into 'pip_kernel(hls::stream<ap_uint<8>, 0>&, hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>&, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, unsigned short)' (pip_kernel.cpp:113:14)
-WARNING: [HLS 214-183] Unsupport array of struct: array_partition pragma on TOP function argument, in 'call' (pip_kernel.cpp:101:3)
-WARNING: [HLS 214-183] Unsupport array of struct: array_partition pragma on TOP function argument, in 'call' (pip_kernel.cpp:103:9)
-INFO: [HLS 214-178] Inlining function 'div_lookup(ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>)' into 'fast_div(ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>)' (pip_kernel.cpp:32:0)
-INFO: [HLS 214-178] Inlining function 'init_div_table()' into 'pip_kernel(hls::stream<ap_uint<8>, 0>&, hls::stream<ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>, 0>&, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, ap_fixed<18, 10, (ap_q_mode)0, (ap_o_mode)0, 0>*, unsigned short)' (pip_kernel.cpp:100:0)
-INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1660.199 ; gain = 1227.777 ; free physical = 927 ; free virtual = 13583
-INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1660.199 ; gain = 1227.777 ; free physical = 927 ; free virtual = 13583
-INFO: [HLS 200-10] Starting code transformations ...
-INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1660.199 ; gain = 1227.777 ; free physical = 910 ; free virtual = 13569
-INFO: [HLS 200-10] Checking synthesizability ...
-INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1660.199 ; gain = 1227.777 ; free physical = 891 ; free virtual = 13552
-INFO: [XFORM 203-510] Pipelining loop 'LOOP_INIT_DIV_TABLE' in function 'pip_kernel' automatically.
-INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'LOOP_STREAM' (pip_kernel.cpp:106) in function 'pip_kernel' for pipelining.
-INFO: [HLS 200-489] Unrolling loop 'LOOP_PIP' (pip_kernel.cpp:85) in function 'pip_kernel' completely with a factor of 128.
-INFO: [XFORM 203-401] Performing if-conversion on hyperblock to (pip_kernel.cpp:45:5) in function 'pip_crossing2'... converting 11 basic blocks.
-INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (pip_kernel.cpp:28:35) to (pip_kernel.cpp:34:2) in function 'fast_div'... converting 7 basic blocks.
-INFO: [XFORM 203-602] Inlining function 'fast_div' into 'pip_crossing2' (pip_kernel.cpp:42) automatically.
-INFO: [XFORM 203-11] Balancing expressions in function 'pip_kernel' (pip_kernel.cpp:100)...127 expression(s) balanced.
-INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 1660.199 ; gain = 1227.777 ; free physical = 840 ; free virtual = 13504
-INFO: [HLS 200-472] Inferring partial write operation for 'div_table.V' 
-INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:00:31 ; elapsed = 00:00:31 . Memory (MB): peak = 1660.199 ; gain = 1227.777 ; free physical = 685 ; free virtual = 13352
-INFO: [HLS 200-10] Starting hardware synthesis ...
-INFO: [HLS 200-10] Synthesizing 'pip_kernel' ...
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [HLS 200-42] -- Implementing module 'pip_crossing2' 
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [SCHED 204-11] Starting scheduling ...
-INFO: [HLS 200-486] Changing DSP48 latency (root=ret_V) to 3 in order to utilize available DSP registers.
-INFO: [HLS 200-486] Changing DSP48 latency (root=r_V) to 3 in order to utilize available DSP registers.
-INFO: [SCHED 204-61] Pipelining function 'pip_crossing2'.
-INFO: [HLS 200-1470] Pipelining result : Target II = 8, Final II = 8, Depth = 8.
-INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111]  Elapsed time: 32.77 seconds; current allocated memory: 200.894 MB.
-INFO: [BIND 205-100] Starting micro-architecture generation ...
-INFO: [BIND 205-101] Performing variable lifetime analysis.
-INFO: [BIND 205-101] Exploring resource sharing.
-INFO: [BIND 205-101] Binding ...
-INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111]  Elapsed time: 0.08 seconds; current allocated memory: 201.463 MB.
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [HLS 200-42] -- Implementing module 'pip_kernel' 
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [SCHED 204-11] Starting scheduling ...
-INFO: [SCHED 204-61] Pipelining loop 'LOOP_INIT_DIV_TABLE'.
-INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 15.
-INFO: [SCHED 204-61] Pipelining loop 'LOOP_STREAM'.
-INFO: [SCHED 204-61] Unable to satisfy pipeline directive: Unable to pipeline the region.
-INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111]  Elapsed time: 530.33 seconds; current allocated memory: 245.727 MB.
-INFO: [BIND 205-100] Starting micro-architecture generation ...
-INFO: [BIND 205-101] Performing variable lifetime analysis.
-INFO: [BIND 205-101] Exploring resource sharing.
-INFO: [BIND 205-101] Binding ...
-INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111]  Elapsed time: 21.79 seconds; current allocated memory: 352.785 MB.
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [HLS 200-10] -- Generating RTL for module 'pip_crossing2' 
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-100] Generating core module 'am_submul_18s_18s_18s_37_4_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_mul_18s_18s_36_4_1': 1 instance(s).
-INFO: [RTGEN 206-100] Finished creating RTL model for 'pip_crossing2'.
-INFO: [HLS 200-111]  Elapsed time: 4.8 seconds; current allocated memory: 354.939 MB.
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [HLS 200-10] -- Generating RTL for module 'pip_kernel' 
-INFO: [HLS 200-10] ----------------------------------------------------------------
-WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
-INFO: [RTGEN 206-500] Setting interface mode on port 'pip_kernel/gmem' to 'm_axi'.
-INFO: [RTGEN 206-500] Setting interface mode on port 'pip_kernel/out_V' to 'axis' (register, both mode).
-INFO: [RTGEN 206-500] Setting interface mode on port 'pip_kernel/points_V' to 'axis' (register, both mode).
-INFO: [RTGEN 206-500] Setting interface mode on port 'pip_kernel/edges_a' to 's_axilite & ap_none'.
-INFO: [RTGEN 206-500] Setting interface mode on port 'pip_kernel/edges_b' to 's_axilite & ap_none'.
-INFO: [RTGEN 206-500] Setting interface mode on port 'pip_kernel/strm_len' to 's_axilite & ap_none'.
-INFO: [RTGEN 206-500] Setting interface mode on function 'pip_kernel' to 's_axilite & ap_ctrl_chain'.
-INFO: [RTGEN 206-100] Bundling port 'edges_a', 'edges_b', 'strm_len' and 'return' to AXI-Lite port control.
-INFO: [RTGEN 206-104] Estimated max fanout for 'pip_kernel' is 32800 from HDL expression: (1'b1 == ap_CS_fsm_state17)
-INFO: [RTGEN 206-100] Generating core module 'sdiv_11ns_18ns_18_15_1': 1 instance(s).
-INFO: [RTGEN 206-100] Finished creating RTL model for 'pip_kernel'.
-INFO: [HLS 200-111]  Elapsed time: 3.4 seconds; current allocated memory: 427.931 MB.
-INFO: [RTMG 210-282] Generating pipelined core: 'pip_kernel_sdiv_11ns_18ns_18_15_1_div'
-INFO: [RTMG 210-278] Implementing memory 'pip_kernel_div_table_V_ram (RAM)' using block RAMs with power-on initialization.
-INFO: [HLS 200-111] Finished generating all RTL models Time (s): cpu = 00:09:58 ; elapsed = 00:10:03 . Memory (MB): peak = 1660.199 ; gain = 1227.777 ; free physical = 240 ; free virtual = 13061
-INFO: [VHDL 208-304] Generating VHDL RTL for pip_kernel.
-INFO: [VLOG 209-307] Generating Verilog RTL for pip_kernel.
-INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were satisfied.
-INFO: [HLS 200-789] **** Estimated Fmax: 136.99 MHz
-INFO: [HLS 200-112] Total elapsed time: 603.39 seconds; peak allocated memory: 427.931 MB.
+INFO: [HLS 200-1464] Running solution command: config_export -format=xo
+INFO: [HLS 200-1510] Running: set_part xczu9eg-ffvb1156-2-e 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: config_interface -default_slave_interface s_axilite -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512 
+INFO: [HLS 200-1510] Running: config_rtl -register_reset_num 3 
+INFO: [HLS 200-1510] Running: config_export -format xo 
+INFO: [HLS 200-1510] Running: source ./pip_hls_kernel/solution1/directives.tcl
+INFO: [HLS 200-1510] Running: set_directive_top -name pip_kernel pip_kernel 
+INFO: [HLS 200-1510] Running: export_design -rtl verilog -format xo 
+INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source run_ippack.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2022.1/data/ip'.
+Running package_xo -xo_path C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/export.xo -kernel_name pip_kernel -kernel_xml C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip/../kernel/kernel.xml -kernel_files C:/Users/fpga/workspace/pip_hls_kernel/pip_kernel.cpp -ip_directory C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip/ip_unzip_dir -design_xml C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/.autopilot/db/pip_kernel.design.xml -debug_directory C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/.debug -hls_directory C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/impl/ip/hls_files
+INFO: [Common 17-206] Exiting Vivado at Mon May  2 16:45:31 2022...
+INFO: [HLS 200-802] Generated output file pip_hls_kernel/solution1/impl/export.xo
+INFO: [HLS 200-111] Finished Command export_design CPU user time: 2 seconds. CPU system time: 1 seconds. Elapsed time: 15.679 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-112] Total CPU user time: 7 seconds. Total CPU system time: 2 seconds. Total elapsed time: 19.898 seconds; peak allocated memory: 1.519 GB.

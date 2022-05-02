@@ -1,16 +1,18 @@
-<root versionMajor="1" versionMinor="5">
-    <kernel name="pip_kernel" language="c" vlnv="xilinx.com:hls:pip_kernel:1.0" attributes="" hash="" preferredWorkGroupSizeMultiple="0" workGroupSize="1" debug="false" compileOptions="" profileType="none" hwControlProtocol="ap_ctrl_chain" interrupt="true">
-        <ports>
-            <port name="M_AXI_GMEM" portType="addressable" mode="master" base="0x0" range="0xFFFFFFFF" dataWidth="32"/>
-            <port name="S_AXI_CONTROL" portType="addressable" mode="slave" base="0x0" range="0x1000" dataWidth="32"/>
-        </ports>
-        <args>
-            <arg id="0" name="out" addressQualifier="1" port="M_AXI_GMEM" hostOffset="0x0" hostSize="0x8" offset="0x10" size="0x8" type="void*"/>
-            <arg id="1" name="points" addressQualifier="1" port="M_AXI_GMEM" hostOffset="0x0" hostSize="0x8" offset="0x1C" size="0x8" type="void*"/>
-            <arg id="2" name="edges" addressQualifier="1" port="M_AXI_GMEM" hostOffset="0x0" hostSize="0x8" offset="0x28" size="0x8" type="void*"/>
-        </args>
-        <compileWorkGroupSize x="1" y="1" z="1"/>
-        <maxWorkGroupSize x="1" y="1" z="1"/>
-    </kernel>
+<root versionMajor = "1" versionMinor = "5">
+  <kernel name="pip_kernel" language="c" vlnv="xilinx.com:hls:pip_kernel:1.0" attributes="" hash="" preferredWorkGroupSizeMultiple="0" workGroupSize="1" debug="false" compileOptions="" profileType="" hwControlProtocol="ap_ctrl_chain">
+    <ports>
+      <port name="M_AXI_GMEM" portType="addressable" mode="master" base="0x0" range="0xFFFFFFFF" dataWidth="64"/>
+      <port name="OUT_R" mode="write_only" dataWidth="8" portType="stream"/>
+      <port name="POINTS" mode="read_only" dataWidth="24" portType="stream"/>
+      <port name="S_AXI_CONTROL" portType="addressable" mode="slave" base="0x0" range="0x24" dataWidth="32"/>
+    </ports>
+    <args>
+      <arg id="0" name="out" addressQualifier="4" port="OUT_R" hostOffset="0x0" hostSize="0x8" offset="0x0" size="0x0" type="stream&lt;ap_uint&lt;8&gt;, 0&gt;&amp;" origName="out" origUse="variable"/>
+      <arg id="1" name="points" addressQualifier="4" port="POINTS" hostOffset="0x0" hostSize="0x8" offset="0x0" size="0x0" type="stream&lt;ap_fixed&lt;18, 10, AP_RND, AP_SAT, 0&gt;, 0&gt;&amp;" origName="points" origUse="variable"/>
+    <arg id="2" name="edges" addressQualifier="1" port="M_AXI_GMEM" hostOffset="0x0" hostSize="0x8" offset="0x10" size="0x8" type="void*"/>
+    <arg id="3" name="strm_len" addressQualifier="0" port="S_AXI_CONTROL" hostOffset="0x0" hostSize="0x2" offset="0x1C" size="0x4" type="unsigned int"/>
+    </args>
+    <compileWorkGroupSize x="1" y="1" z="1"/>
+    <maxWorkGroupSize x="1" y="1" z="1"/>
+  </kernel>
 </root>
-

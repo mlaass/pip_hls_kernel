@@ -1,94 +1,9 @@
 # This script segment is generated automatically by AutoPilot
 
-set id 12
-set name pip_kernel_sdiv_11ns_18ns_18_15_1
-set corename simcore_sdiv
-set op sdiv
-set stage_num 15
-set max_latency -1
-set registered_input 1
-set clk_width 1
-set clk_signed 0
-set reset_width 1
-set reset_signed 0
-set in0_width 11
-set in0_signed 0
-set in1_width 18
-set in1_signed 0
-set ce_width 1
-set ce_signed 0
-set out_width 18
-if {${::AESL::PGuard_simmodel_gen}} {
-if {[info proc ap_gen_simcore_sdiv] == "ap_gen_simcore_sdiv"} {
-eval "ap_gen_simcore_sdiv { \
-    id ${id} \
-    name ${name} \
-    corename ${corename} \
-    op ${op} \
-    reset_level 1 \
-    sync_rst true \
-    stage_num ${stage_num} \
-    max_latency ${max_latency} \
-    registered_input ${registered_input} \
-    clk_width ${clk_width} \
-    clk_signed ${clk_signed} \
-    reset_width ${reset_width} \
-    reset_signed ${reset_signed} \
-    in0_width ${in0_width} \
-    in0_signed ${in0_signed} \
-    in1_width ${in1_width} \
-    in1_signed ${in1_signed} \
-    ce_width ${ce_width} \
-    ce_signed ${ce_signed} \
-    out_width ${out_width} \
-}"
-} else {
-puts "@W \[IMPL-100\] Cannot find ap_gen_simcore_sdiv, check your AutoPilot builtin lib"
-}
-}
-
-
-if {${::AESL::PGuard_rtl_comp_handler}} {
-	::AP::rtl_comp_handler ${name}
-}
-
-
-set op sdiv
-set corename DivnS
-if {${::AESL::PGuard_autocg_gen} && ${::AESL::PGuard_autocg_ipmgen}} {
-if {[info proc ::AESL_LIB_VIRTEX::xil_gen_div] == "::AESL_LIB_VIRTEX::xil_gen_div"} {
-eval "::AESL_LIB_VIRTEX::xil_gen_div { \
-    id ${id} \
-    name ${name} \
-    corename ${corename} \
-    op ${op} \
-    reset_level 1 \
-    sync_rst true \
-    stage_num ${stage_num} \
-    max_latency ${max_latency} \
-    registered_input ${registered_input} \
-    clk_width ${clk_width} \
-    clk_signed ${clk_signed} \
-    reset_width ${reset_width} \
-    reset_signed ${reset_signed} \
-    in0_width ${in0_width} \
-    in0_signed ${in0_signed} \
-    in1_width ${in1_width} \
-    in1_signed ${in1_signed} \
-    ce_width ${ce_width} \
-    ce_signed ${ce_signed} \
-    out_width ${out_width} \
-}"
-} else {
-puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_div, check your platform lib"
-}
-}
-
-
 # Memory (RAM/ROM)  definition:
-set ID 14
+set ID 20
 set hasByteEnable 0
-set MemName pip_kernel_div_table_V
+set MemName pip_kernel_div_table_V_RAM_AUTO_1R1W
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 18
@@ -101,22 +16,18 @@ set ROMData { }
 set HasInitializer 1
 set Initializer $ROMData
 set NumOfStage 2
-set MaxLatency -1
-set DelayBudget 1.297
-set ClkPeriod 10
-set RegisteredInput 0
+set DelayBudget 1.237
 if {${::AESL::PGuard_simmodel_gen}} {
 if {[info proc ap_gen_simcore_mem] == "ap_gen_simcore_mem"} {
     eval "ap_gen_simcore_mem { \
     id ${ID} \
     name ${MemName} \
     corename ${CoreName}  \
-    op mem \
+    op mem  \
     hasByteEnable ${hasByteEnable} \
     reset_level 1 \
     sync_rst true \
     stage_num ${NumOfStage}  \
-    registered_input ${RegisteredInput} \
     port_num 2 \
     port_list \{${PortList}\} \
     data_wd ${DataWd} \
@@ -125,7 +36,6 @@ if {[info proc ap_gen_simcore_mem] == "ap_gen_simcore_mem"} {
     style ${impl_style} \
     true_reset ${TrueReset} \
     delay_budget ${DelayBudget} \
-    clk_period ${ClkPeriod} \
     HasInitializer ${HasInitializer} \
     rom_data \{${ROMData}\} \
  } "
@@ -136,7 +46,7 @@ if {[info proc ap_gen_simcore_mem] == "ap_gen_simcore_mem"} {
 
 
 if {${::AESL::PGuard_rtl_comp_handler}} {
-  ::AP::rtl_comp_handler $MemName
+	::AP::rtl_comp_handler $MemName BINDTYPE {storage} TYPE {ram} IMPL {auto} LATENCY 2 ALLOW_PRAGMA 1
 }
 
 
@@ -147,12 +57,11 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
     id ${ID} \
     name ${MemName} \
     corename ${CoreName}  \
-    op mem \
+    op mem  \
     hasByteEnable ${hasByteEnable} \
     reset_level 1 \
     sync_rst true \
     stage_num ${NumOfStage}  \
-    registered_input ${RegisteredInput} \
     port_num 2 \
     port_list \{${PortList}\} \
     data_wd ${DataWd} \
@@ -161,13 +70,18 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
     style ${impl_style} \
     true_reset ${TrueReset} \
     delay_budget ${DelayBudget} \
-    clk_period ${ClkPeriod} \
     HasInitializer ${HasInitializer} \
     rom_data \{${ROMData}\} \
  } "
   } else {
     puts "@W \[IMPL-104\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_RAM, check your platform lib"
   }
+}
+
+
+set name pip_kernel_gmem_m_axi
+if {${::AESL::PGuard_rtl_comp_handler}} {
+	::AP::rtl_comp_handler $name BINDTYPE {interface} TYPE {adapter} IMPL {m_axi}
 }
 
 
@@ -180,7 +94,7 @@ if {${::AESL::PGuard_autoexp_gen}} {
 
 set axilite_register_dict [dict create]
 set port_control {
-edges_a { 
+edges { 
 	dir I
 	width 64
 	depth 1
@@ -188,27 +102,21 @@ edges_a {
 	offset 16
 	offset_end 27
 }
-edges_b { 
+strm_len { 
 	dir I
-	width 64
+	width 16
 	depth 1
 	mode ap_none
 	offset 28
-	offset_end 39
-}
-strm_len { 
-	dir I
-	width 32
-	depth 1
-	mode ap_none
-	offset 40
-	offset_end 47
+	offset_end 35
 }
 ap_start { }
 ap_done { }
 ap_ready { }
 ap_continue { }
 ap_idle { }
+interrupt {
+}
 }
 dict set axilite_register_dict control $port_control
 
@@ -217,13 +125,16 @@ dict set axilite_register_dict control $port_control
 if {${::AESL::PGuard_simmodel_gen}} {
 	if {[info proc ::AESL_LIB_XILADAPTER::s_axilite_gen] == "::AESL_LIB_XILADAPTER::s_axilite_gen"} {
 		eval "::AESL_LIB_XILADAPTER::s_axilite_gen { \
-			id 15 \
+			id 21 \
 			corename pip_kernel_control_axilite \
 			name pip_kernel_control_s_axi \
 			ports {$port_control} \
 			op interface \
-			is_flushable 0 \ 
-			is_datawidth64 0 \ 
+			interrupt_clear_mode COR \
+			interrupt_trigger_type default \
+			is_flushable 0 \
+			is_datawidth64 0 \
+			is_addrwidth64 1 \
 		} "
 	} else {
 		puts "@W \[IMPL-110\] Cannot find AXI Lite interface model in the library. Ignored generation of AXI Lite  interface for 'control'"
@@ -231,45 +142,24 @@ if {${::AESL::PGuard_simmodel_gen}} {
 }
 
 if {${::AESL::PGuard_rtl_comp_handler}} {
-	::AP::rtl_comp_handler pip_kernel_control_s_axi
-}
-
-# Native M_AXI:
-if {${::AESL::PGuard_simmodel_gen}} {
-if {[info proc ::AESL_LIB_XILADAPTER::m_axi_gen] == "::AESL_LIB_XILADAPTER::m_axi_gen"} {
-eval "::AESL_LIB_XILADAPTER::m_axi_gen { \
-    id 16 \
-    corename {m_axi} \
-    op interface \
-    max_latency -1 \ 
-    delay_budget 7.3 \ 
-    is_flushable 0 \ 
-    name {pip_kernel_gmem_m_axi} \
-} "
-} else {
-puts "@W \[IMPL-110\] Cannot find AXI interface model in the library. Ignored generation of AXI interface for 'gmem'"
-}
-}
-
-if {${::AESL::PGuard_rtl_comp_handler}} {
-	::AP::rtl_comp_handler pip_kernel_gmem_m_axi
+	::AP::rtl_comp_handler pip_kernel_control_s_axi BINDTYPE interface TYPE interface_s_axilite
 }
 
 # Native AXIS:
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::native_axis_add] == "::AESL_LIB_XILADAPTER::native_axis_add"} {
 eval "::AESL_LIB_XILADAPTER::native_axis_add { \
-    id 17 \
-    name out_V \
+    id 23 \
+    name out_r \
     reset_level 0 \
     sync_rst true \
     corename {} \
     metadata {  } \
     op interface \
-    ports { out_V_TDATA { O 8 vector } out_V_TVALID { O 1 bit } out_V_TREADY { I 1 bit } } \
+    ports { out_r_TDATA { O 8 vector } out_r_TVALID { O 1 bit } out_r_TREADY { I 1 bit } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'out_V'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'out_r'"
 }
 }
 
@@ -278,17 +168,17 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::native_axis_add] == "::AESL_LIB_XILADAPTER::native_axis_add"} {
 eval "::AESL_LIB_XILADAPTER::native_axis_add { \
-    id 18 \
-    name points_V \
+    id 24 \
+    name points \
     reset_level 0 \
     sync_rst true \
     corename {} \
     metadata {  } \
     op interface \
-    ports { points_V_TDATA { I 32 vector } points_V_TVALID { I 1 bit } points_V_TREADY { O 1 bit } } \
+    ports { points_TDATA { I 24 vector } points_TVALID { I 1 bit } points_TREADY { O 1 bit } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'points_V'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'points'"
 }
 }
 
@@ -344,12 +234,12 @@ if {${::AESL::PGuard_autoexp_gen}} {
 
 
 # RegSlice definition:
-set ID 19
-set RegSliceName regslice_core
-set RegSliceInstName regslice_core_U
-set CoreName ap_simcore_regslice_core
+set ID 25
+set RegSliceName pip_kernel_regslice_both
+set RegSliceInstName pip_kernel_regslice_both_U
+set CoreName ap_simcore_pip_kernel_regslice_both
 if {${::AESL::PGuard_rtl_comp_handler}} {
-	::AP::rtl_comp_handler $RegSliceName
+	::AP::rtl_comp_handler $RegSliceName BINDTYPE interface TYPE interface_regslice INSTNAME $RegSliceInstName
 }
 
 
@@ -357,6 +247,31 @@ if {${::AESL::PGuard_autocg_gen} && ${::AESL::PGuard_autocg_ipmgen}} {
 if {[info proc ::AESL_LIB_VIRTEX::xil_gen_regSlice] == "::AESL_LIB_VIRTEX::xil_gen_regSlice"} {
 eval "::AESL_LIB_VIRTEX::xil_gen_regSlice { \
     name ${RegSliceName} \
+    prefix pip_kernel_ \
+    sliceTypeList 0\
+}"
+} else {
+puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_regSlice, check your platform lib"
+}
+}
+
+
+# RegSlice definition:
+set ID 26
+set RegSliceName pip_kernel_regslice_both
+set RegSliceInstName pip_kernel_regslice_both_U
+set CoreName ap_simcore_pip_kernel_regslice_both
+if {${::AESL::PGuard_rtl_comp_handler}} {
+	::AP::rtl_comp_handler $RegSliceName BINDTYPE interface TYPE interface_regslice INSTNAME $RegSliceInstName
+}
+
+
+if {${::AESL::PGuard_autocg_gen} && ${::AESL::PGuard_autocg_ipmgen}} {
+if {[info proc ::AESL_LIB_VIRTEX::xil_gen_regSlice] == "::AESL_LIB_VIRTEX::xil_gen_regSlice"} {
+eval "::AESL_LIB_VIRTEX::xil_gen_regSlice { \
+    name ${RegSliceName} \
+    prefix pip_kernel_ \
+    sliceTypeList 0\
 }"
 } else {
 puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_regSlice, check your platform lib"

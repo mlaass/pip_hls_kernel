@@ -2,7 +2,7 @@
 
 set axilite_register_dict [dict create]
 set port_control {
-edges_a { 
+edges { 
 	dir I
 	width 64
 	depth 1
@@ -10,27 +10,21 @@ edges_a {
 	offset 16
 	offset_end 27
 }
-edges_b { 
+strm_len { 
 	dir I
-	width 64
+	width 16
 	depth 1
 	mode ap_none
 	offset 28
-	offset_end 39
-}
-strm_len { 
-	dir I
-	width 32
-	depth 1
-	mode ap_none
-	offset 40
-	offset_end 47
+	offset_end 35
 }
 ap_start { }
 ap_done { }
 ap_ready { }
 ap_continue { }
 ap_idle { }
+interrupt {
+}
 }
 dict set axilite_register_dict control $port_control
 

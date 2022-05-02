@@ -1,12 +1,10 @@
 # This script segment is generated automatically by AutoPilot
 
-set id 1
+set id 4
 set name pip_kernel_mul_mul_18s_18s_36_4_1
 set corename simcore_mul
 set op mul
 set stage_num 4
-set max_latency -1
-set registered_input 1
 set clk_width 1
 set clk_signed 0
 set reset_width 1
@@ -18,44 +16,10 @@ set in1_signed 1
 set ce_width 1
 set ce_signed 0
 set out_width 36
-set exp i0*i1
 set arg_lists {i0 {18 1 +} i1 {18 1 +} p {36 1 +} acc {0} }
 set TrueReset 0
-if {${::AESL::PGuard_simmodel_gen}} {
-if {[info proc ap_gen_simcore_mul] == "ap_gen_simcore_mul"} {
-eval "ap_gen_simcore_mul { \
-    id ${id} \
-    name ${name} \
-    corename ${corename} \
-    op ${op} \
-    reset_level 1 \
-    sync_rst true \
-    true_reset ${TrueReset} \
-    stage_num ${stage_num} \
-    max_latency ${max_latency} \
-    registered_input ${registered_input} \
-    clk_width ${clk_width} \
-    clk_signed ${clk_signed} \
-    reset_width ${reset_width} \
-    reset_signed ${reset_signed} \
-    in0_width ${in0_width} \
-    in0_signed ${in0_signed} \
-    in1_width ${in1_width} \
-    in1_signed ${in1_signed} \
-    ce_width ${ce_width} \
-    ce_signed ${ce_signed} \
-    out_width ${out_width} \
-    exp ${exp} \
-    arg_lists {${arg_lists}} \
-}"
-} else {
-puts "@W \[IMPL-100\] Cannot find ap_gen_simcore_mul, check your AutoPilot builtin lib"
-}
-}
-
-
 if {${::AESL::PGuard_rtl_comp_handler}} {
-	::AP::rtl_comp_handler ${name}
+	::AP::rtl_comp_handler $name BINDTYPE {op} TYPE {all} IMPL {dsp48} LATENCY 3 ALLOW_PRAGMA 1
 }
 
 
@@ -72,8 +36,6 @@ eval "::AESL_LIB_VIRTEX::xil_gen_dsp48 { \
     sync_rst true \
     true_reset ${TrueReset} \
     stage_num ${stage_num} \
-    max_latency ${max_latency} \
-    registered_input ${registered_input} \
     clk_width ${clk_width} \
     clk_signed ${clk_signed} \
     reset_width ${reset_width} \
@@ -85,7 +47,6 @@ eval "::AESL_LIB_VIRTEX::xil_gen_dsp48 { \
     ce_width ${ce_width} \
     ce_signed ${ce_signed} \
     out_width ${out_width} \
-    exp ${exp} \
     arg_lists {${arg_lists}} \
 }"
 } else {
@@ -94,13 +55,11 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_dsp48, check your p
 }
 
 
-set id 2
+set id 5
 set name pip_kernel_am_submul_18s_18s_18s_37_4_1
 set corename simcore_am
 set op am
 set stage_num 4
-set max_latency -1
-set registered_input 1
 set clk_width 1
 set clk_signed 0
 set reset_width 1
@@ -114,46 +73,10 @@ set in2_signed 1
 set ce_width 1
 set ce_signed 0
 set out_width 37
-set exp (i0+i1)*i2
 set arg_lists {i0 {18 1 +} i1 {18 1 -} s {19 1 +} i2 {18 1 +} p {37 1 +} c_expval {c} acc {0} }
 set TrueReset 0
-if {${::AESL::PGuard_simmodel_gen}} {
-if {[info proc ap_gen_simcore_am] == "ap_gen_simcore_am"} {
-eval "ap_gen_simcore_am { \
-    id ${id} \
-    name ${name} \
-    corename ${corename} \
-    op ${op} \
-    reset_level 1 \
-    sync_rst true \
-    true_reset ${TrueReset} \
-    stage_num ${stage_num} \
-    max_latency ${max_latency} \
-    registered_input ${registered_input} \
-    clk_width ${clk_width} \
-    clk_signed ${clk_signed} \
-    reset_width ${reset_width} \
-    reset_signed ${reset_signed} \
-    in0_width ${in0_width} \
-    in0_signed ${in0_signed} \
-    in1_width ${in1_width} \
-    in1_signed ${in1_signed} \
-    in2_width ${in2_width} \
-    in2_signed ${in2_signed} \
-    ce_width ${ce_width} \
-    ce_signed ${ce_signed} \
-    out_width ${out_width} \
-    exp ${exp} \
-    arg_lists {${arg_lists}} \
-}"
-} else {
-puts "@W \[IMPL-100\] Cannot find ap_gen_simcore_am, check your AutoPilot builtin lib"
-}
-}
-
-
 if {${::AESL::PGuard_rtl_comp_handler}} {
-	::AP::rtl_comp_handler ${name}
+	::AP::rtl_comp_handler $name BINDTYPE {op} TYPE {all} IMPL {dsp48} LATENCY 3 ALLOW_PRAGMA 1
 }
 
 
@@ -170,8 +93,6 @@ eval "::AESL_LIB_VIRTEX::xil_gen_dsp48 { \
     sync_rst true \
     true_reset ${TrueReset} \
     stage_num ${stage_num} \
-    max_latency ${max_latency} \
-    registered_input ${registered_input} \
     clk_width ${clk_width} \
     clk_signed ${clk_signed} \
     reset_width ${reset_width} \
@@ -185,7 +106,6 @@ eval "::AESL_LIB_VIRTEX::xil_gen_dsp48 { \
     ce_width ${ce_width} \
     ce_signed ${ce_signed} \
     out_width ${out_width} \
-    exp ${exp} \
     arg_lists {${arg_lists}} \
 }"
 } else {
@@ -205,7 +125,7 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
-    id 11 \
+    id 14 \
     name div_table_V \
     reset_level 1 \
     sync_rst true \
@@ -223,7 +143,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 5 \
+    id 8 \
     name p_x \
     type other \
     dir I \
@@ -238,7 +158,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 6 \
+    id 9 \
     name p_y \
     type other \
     dir I \
@@ -253,7 +173,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 7 \
+    id 10 \
     name e1_x \
     type other \
     dir I \
@@ -268,7 +188,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 8 \
+    id 11 \
     name e1_y \
     type other \
     dir I \
@@ -283,7 +203,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 9 \
+    id 12 \
     name e2_x \
     type other \
     dir I \
@@ -298,7 +218,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 10 \
+    id 13 \
     name e2_y \
     type other \
     dir I \

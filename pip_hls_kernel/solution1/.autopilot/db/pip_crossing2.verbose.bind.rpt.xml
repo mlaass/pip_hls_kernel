@@ -1,13 +1,13 @@
 <profile>
 
 <section name = "Vitis HLS Report for 'pip_crossing2'" level="0">
-<item name = "Date">Thu Apr 28 16:41:10 2022
+<item name = "Date">Mon May  2 12:37:24 2022
 </item>
-<item name = "Version">2020.1 (Build 2902540 on Wed May 27 20:16:15 MDT 2020)</item>
+<item name = "Version">2022.1 (Build 3526262 on Mon Apr 18 15:48:16 MDT 2022)</item>
 <item name = "Project">pip_hls_kernel</item>
 <item name = "Solution">solution1 (Vitis Kernel Flow Target)</item>
-<item name = "Product family">virtexuplus</item>
-<item name = "Target device">xcvu11p-flga2577-1-e</item>
+<item name = "Product family">zynquplus</item>
+<item name = "Target device">xczu9eg-ffvb1156-2-e</item>
 </section>
 
 <section name = "Performance Estimates" level="0">
@@ -15,7 +15,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="4">Clock, Target, Estimated, Uncertainty</keys>
-<column name="ap_clk">10.00 ns, 5.075 ns, 2.70 ns</column>
+<column name="ap_clk">10.00 ns, 4.424 ns, 2.70 ns</column>
 </table>
 </item>
 </section>
@@ -24,7 +24,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="8">, min, max, min, max, min, max, Type</keys>
-<column name="">7, 7, 70.000 ns, 70.000 ns, 8, 8, function</column>
+<column name="">7, 7, 70.000 ns, 70.000 ns, 8, 8, yes</column>
 </table>
 </item>
 <item name = "Detail">

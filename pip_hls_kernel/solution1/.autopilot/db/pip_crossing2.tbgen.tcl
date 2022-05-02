@@ -9,6 +9,7 @@ set isOneStateSeq 0
 set ProfileFlag 0
 set StallSigGenFlag 0
 set isEnableWaveformDebug 1
+set hasInterrupt 0
 set C_modelName {pip_crossing2}
 set C_modelType { int 1 }
 set C_modelArgList {
@@ -73,7 +74,7 @@ set RtlHierarchyInfo {[
 	{"ID" : "0", "Level" : "0", "Path" : "`AUTOTB_DUT_INST", "Parent" : "", "Child" : ["1", "2"],
 		"CDFG" : "pip_crossing2",
 		"Protocol" : "ap_ctrl_hs",
-		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1", "real_start" : "0",
 		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
 		"II" : "8",
 		"VariableLatency" : "0", "ExactLatency" : "7", "EstimateLatencyMin" : "7", "EstimateLatencyMax" : "7",
@@ -83,6 +84,7 @@ set RtlHierarchyInfo {[
 		"HasSubDataflow" : "0",
 		"InDataflowNetwork" : "0",
 		"HasNonBlockingOperation" : "0",
+		"IsBlackBox" : "0",
 		"Port" : [
 			{"Name" : "p_x", "Type" : "None", "Direction" : "I"},
 			{"Name" : "p_y", "Type" : "None", "Direction" : "I"},
@@ -91,8 +93,8 @@ set RtlHierarchyInfo {[
 			{"Name" : "e2_x", "Type" : "None", "Direction" : "I"},
 			{"Name" : "e2_y", "Type" : "None", "Direction" : "I"},
 			{"Name" : "div_table_V", "Type" : "Memory", "Direction" : "I"}]},
-	{"ID" : "1", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.mul_mul_18s_18s_36_4_1_U1", "Parent" : "0"},
-	{"ID" : "2", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.am_submul_18s_18s_18s_37_4_1_U2", "Parent" : "0"}]}
+	{"ID" : "1", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.mul_mul_18s_18s_36_4_1_U4", "Parent" : "0"},
+	{"ID" : "2", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.am_submul_18s_18s_18s_37_4_1_U5", "Parent" : "0"}]}
 
 
 set ArgLastReadFirstWriteLatency {
@@ -122,5 +124,5 @@ set Spec2ImplPortList {
 	e1_y { ap_none {  { e1_y in_data 0 18 } } }
 	e2_x { ap_none {  { e2_x in_data 0 18 } } }
 	e2_y { ap_none {  { e2_y in_data 0 18 } } }
-	div_table_V { ap_memory {  { div_table_V_address0 mem_address 1 10 }  { div_table_V_ce0 mem_ce 1 1 }  { div_table_V_q0 mem_dout 0 18 } } }
+	div_table_V { ap_memory {  { div_table_V_address0 mem_address 1 10 }  { div_table_V_ce0 mem_ce 1 1 }  { div_table_V_q0 in_data 0 18 } } }
 }

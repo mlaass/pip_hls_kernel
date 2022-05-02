@@ -16,9 +16,9 @@ using namespace std;
 */
 
 //! WHEN changing this change ii value in LOOP_STREAM
-#define N_EDGES 128
+#define N_EDGES 32
 // N_EDGES*2
-#define SZ_EDGES 256
+#define SZ_EDGES 64
 
 #define DIV_TABLE_SZ 1024
 
@@ -31,6 +31,7 @@ typedef ap_uint<8> uint_t;
 
 //void pip_kernel(uint_t out[N_POINTS], fixed_t points[POINT_ARR], fixed_t edgesA[EDGE_ARR], fixed_t edgesB[EDGE_ARR]);
 
-void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> & points, fixed_t edges_a[SZ_EDGES], fixed_t edges_b[SZ_EDGES], uint16_t strm_len);
+//void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> & points, fixed_t edges_a[SZ_EDGES], fixed_t edges_b[SZ_EDGES], uint16_t strm_len);
+void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> & points, fixed_t edges[SZ_EDGES], uint16_t strm_len);
 
 #endif

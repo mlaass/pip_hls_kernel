@@ -5,6 +5,9 @@
           "functionName": "pip_kernel",
           "label": "",
           "functionLabel": "",
+          "id": "1",
+          "sourceFile": "C:\/Users\/fpga\/workspace\/pip_hls_kernel\/pip_hls_kernel\/solution1\/directives.tcl",
+          "sourceLine": "6",
           "pragma": {
             "name": "TOP",
             "option": [{
@@ -17,6 +20,9 @@
           "functionName": "pip_kernel",
           "label": "",
           "functionLabel": "",
+          "id": "2",
+          "sourceFile": "C:\/Users\/fpga\/workspace\/pip_hls_kernel\/pip_hls_kernel\/solution1\/csynth.tcl",
+          "sourceLine": "16",
           "pragma": {
             "name": "TOP",
             "option": [{

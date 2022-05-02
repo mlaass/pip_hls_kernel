@@ -19,6 +19,7 @@ set ResetStyle control
 set ResetSyncFlag 1
 set ResetRegisterFlag 1
 set ResetVariableFlag 0
+set ResetRegisterNum 3
 set FsmEncStyle onehot
 set MaxFanout 0
 set RtlPrefix {}
@@ -40,10 +41,10 @@ set ExportMCPathFlag 0
 set SCTraceFileName mytrace
 set SCTraceFileFormat vcd
 set SCTraceOption all
-set TargetInfo xcvu11p:-flga2577:-1-e
+set TargetInfo xczu9eg:-ffvb1156:-2-e
 set SourceFiles {sc {} c ../../pip_kernel.cpp}
 set SourceFlags {sc {} c {{}}}
-set DirectiveFile /home/moritz/workspace/pip_hls_kernel/pip_hls_kernel/solution1/solution1.directive
+set DirectiveFile C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/solution1.directive
 set TBFiles {verilog ../../test_pip_kernel.cpp bc ../../test_pip_kernel.cpp vhdl ../../test_pip_kernel.cpp sc ../../test_pip_kernel.cpp cas ../../test_pip_kernel.cpp c {}}
 set SpecLanguage C
 set TVInFiles {bc {} c {} sc {} cas {} vhdl {} verilog {}}
@@ -60,5 +61,5 @@ set DefaultPlatform DefaultPlatform
 set multiClockList {}
 set SCPortClockMap {}
 set intNbAccess 0
-set PlatformFiles {{DefaultPlatform {xilinx/virtexuplus/virtexuplus xilinx/virtexuplus/virtexuplus_fpv7}}}
+set PlatformFiles {{DefaultPlatform {xilinx/zynquplus/zynquplus}}}
 set HPFPO 0

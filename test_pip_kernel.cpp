@@ -15,9 +15,9 @@ int main() {
   fixed_t points[2048];
   for (int i = 0; i < 2048; i++) {
     if (i % 2 == 0)
-      points[i] = (float)rand() % 360;
+      points[i] = (float)(rand() % 360);
     else
-      points[i] = (float)rand() % 180;
+      points[i] = (float)(rand() % 180);
   }
   bool results[1024];
   make_test_res(points, results, 1024);
@@ -30,28 +30,32 @@ int main() {
   }
   edges_a[0] = 60;
   edges_a[1] = 60;
-  edges_b[0] = 120;
-  edges_b[1] = 60;
+  // edges_b[0] = 120;
+  // edges_b[1] = 60;
 
   edges_a[2] = 120;
   edges_a[3] = 60;
-  edges_b[2] = 120;
-  edges_b[3] = 120;
+  // edges_b[2] = 120;
+  // edges_b[3] = 120;
 
   edges_a[4] = 120;
   edges_a[5] = 120;
-  edges_b[4] = 60;
-  edges_b[5] = 120;
+  // edges_b[4] = 60;
+  // edges_b[5] = 120;
 
   edges_a[6] = 60;
   edges_a[7] = 120;
-  edges_b[6] = 60;
-  edges_b[7] = 60;
+  // edges_b[6] = 60;
+  // edges_b[7] = 60;
 
   hls::stream<fixed_t> pt_stream("pt_stream");
   hls::stream<uint_t> out_strm("out_strm");
+  for(int i = 0; i < 1024; i++){
+	  pt_stream.write(points[i*2]);
+	  pt_stream.write(points[(i*2) +1]);
 
-  pip_kernel(out_strm, pt_stream, edges_a, edges_b, 1024);
+  }
+  pip_kernel(out_strm, pt_stream, edges_a, 1024);
   int err_cnt = 0;
   for (int i = 0; i < 1024; i++) {
     uint_t val = out_strm.read();

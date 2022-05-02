@@ -20,7 +20,7 @@ void init_div_table(){
    int i;
    fixed_t start = - DIV_TABLE_SZ / 2;
    LOOP_INIT_DIV_TABLE: for (i = 0; i < DIV_TABLE_SZ; i++) {
-      fixed_t real_val =  1/ ((fixed_t)i + start)
+      fixed_t real_val =  1/ ((fixed_t)i + start);
       div_table[i] = real_val;
    }
 }
@@ -81,7 +81,7 @@ LOOP_I: for (i = 0; i < N_POINTS; i++) {
   }
 }
 */
-inline uint_t pip_edges(fixed_t px, fixed_t py, fixed_t edges_a[SZ_EDGES], fixed_t edges_b[SZ_EDGES]){
+inline uint_t pip_edges__(fixed_t px, fixed_t py, fixed_t edges_a[SZ_EDGES], fixed_t edges_b[SZ_EDGES]){
 	uint8_t j;
 	uint_t acc = 0;
   LOOP_PIP: for (j = 0; j < N_EDGES; j++) {
@@ -96,22 +96,53 @@ inline uint_t pip_edges(fixed_t px, fixed_t py, fixed_t edges_a[SZ_EDGES], fixed
     }
   return acc;
 }
+inline uint_t pip_edges(fixed_t px, fixed_t py, fixed_t edges[SZ_EDGES]){
+	uint8_t j;
+	uint_t acc = 0;
+  LOOP_PIP: for (j = 0; j < N_EDGES; j++) {
+#pragma HLS loop_merge force
+	  int k = (j+1)%N_EDGES;
+	  fixed_t e1x = edges[j * 2 + 0];
+	  fixed_t e1y = edges[j * 2 + 1];
+	  fixed_t e2x = edges[k * 2 + 0];
+	  fixed_t e2y = edges[k * 2 + 1];
 
-void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> & points, fixed_t edges_a[SZ_EDGES], fixed_t edges_b[SZ_EDGES], uint16_t strm_len=128) {
+      acc += pip_crossing2(px,py,e1x,e1y,e2x,e2y);
+    }
+  return acc;
+}
+inline void pip_edges_out(hls::stream<uint_t> &out, fixed_t px, fixed_t py, fixed_t edges[SZ_EDGES]){
+	uint8_t j;
+	//uint_t acc = 0;
+  LOOP_PIP: for (j = 0; j < N_EDGES; j++) {
+
+	  int k = (j+1)%N_EDGES;
+	  fixed_t e1x = edges[j * 2 + 0];
+	  fixed_t e1y = edges[j * 2 + 1];
+	  fixed_t e2x = edges[k * 2 + 0];
+	  fixed_t e2y = edges[k * 2 + 1];
+
+      out<< pip_crossing2(px,py,e1x,e1y,e2x,e2y);
+    }
+  //return acc;
+}
+
+void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> & points, fixed_t edges[SZ_EDGES], uint16_t strm_len=64) {
   init_div_table();
 //#pragma HLS ARRAY_PARTITION variable=points dim=1 factor=40 block
-#pragma HLS ARRAY_PARTITION variable=edges_a dim=1 factor=16 block
-#pragma HLS ARRAY_PARTITION variable=edges_b dim=1 factor=16 block
+//#pragma HLS ARRAY_PARTITION variable=edges_b dim=1 factor=16 block
+#pragma HLS ARRAY_PARTITION variable=edges dim=1 factor=32 block
 
   int i ;
 
 LOOP_STREAM: for (i = 0; i < strm_len; i++) {
-	//ii = N_EDGES * 2*2*2 = 32 * 8
-#pragma HLS pipeline ii=1024
+#pragma HLS LOOP_TRIPCOUNT avg=4095 max=65535 min=63
+	//ii = N_EDGES * 2*2*2 = 32 * 8 = 256
+#pragma HLS PIPELINE II=256 rewind
 	fixed_t px, py;
 	px = points.read();
 	py = points.read();
 
-	out << pip_edges(px,py,edges_a,edges_b);
+	out <<pip_edges(px,py,edges);
   }
 }
