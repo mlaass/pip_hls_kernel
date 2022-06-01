@@ -6,7 +6,7 @@
 `timescale 1ns/1ps
 module pip_kernel_control_s_axi
 #(parameter
-    C_S_AXI_ADDR_WIDTH = 6,
+    C_S_AXI_ADDR_WIDTH = 5,
     C_S_AXI_DATA_WIDTH = 32
 )(
     input  wire                          ACLK,
@@ -30,7 +30,6 @@ module pip_kernel_control_s_axi
     output wire                          RVALID,
     input  wire                          RREADY,
     output wire                          interrupt,
-    output wire [63:0]                   edges,
     output wire [15:0]                   strm_len,
     output wire                          ap_start,
     input  wire                          ap_done,
@@ -59,28 +58,20 @@ module pip_kernel_control_s_axi
 //        bit 0 - ap_done (Read/COR)
 //        bit 1 - ap_ready (Read/COR)
 //        others - reserved
-// 0x10 : Data signal of edges
-//        bit 31~0 - edges[31:0] (Read/Write)
-// 0x14 : Data signal of edges
-//        bit 31~0 - edges[63:32] (Read/Write)
-// 0x18 : reserved
-// 0x1c : Data signal of strm_len
+// 0x10 : Data signal of strm_len
 //        bit 15~0 - strm_len[15:0] (Read/Write)
 //        others   - reserved
-// 0x20 : reserved
+// 0x14 : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 //------------------------Parameter----------------------
 localparam
-    ADDR_AP_CTRL         = 6'h00,
-    ADDR_GIE             = 6'h04,
-    ADDR_IER             = 6'h08,
-    ADDR_ISR             = 6'h0c,
-    ADDR_EDGES_DATA_0    = 6'h10,
-    ADDR_EDGES_DATA_1    = 6'h14,
-    ADDR_EDGES_CTRL      = 6'h18,
-    ADDR_STRM_LEN_DATA_0 = 6'h1c,
-    ADDR_STRM_LEN_CTRL   = 6'h20,
+    ADDR_AP_CTRL         = 5'h00,
+    ADDR_GIE             = 5'h04,
+    ADDR_IER             = 5'h08,
+    ADDR_ISR             = 5'h0c,
+    ADDR_STRM_LEN_DATA_0 = 5'h10,
+    ADDR_STRM_LEN_CTRL   = 5'h14,
     WRIDLE               = 2'd0,
     WRDATA               = 2'd1,
     WRRESP               = 2'd2,
@@ -88,7 +79,7 @@ localparam
     RDIDLE               = 2'd0,
     RDDATA               = 2'd1,
     RDRESET              = 2'd2,
-    ADDR_BITS                = 6;
+    ADDR_BITS                = 5;
 
 //------------------------Local signal-------------------
     reg  [1:0]                    wstate = WRRESET;
@@ -118,7 +109,6 @@ localparam
     reg                           int_gie = 1'b0;
     reg  [1:0]                    int_ier = 2'b0;
     reg  [1:0]                    int_isr = 2'b0;
-    reg  [63:0]                   int_edges = 'b0;
     reg  [15:0]                   int_strm_len = 'b0;
 
 //------------------------Instantiation------------------
@@ -230,12 +220,6 @@ always @(posedge ACLK) begin
                 ADDR_ISR: begin
                     rdata <= int_isr;
                 end
-                ADDR_EDGES_DATA_0: begin
-                    rdata <= int_edges[31:0];
-                end
-                ADDR_EDGES_DATA_1: begin
-                    rdata <= int_edges[63:32];
-                end
                 ADDR_STRM_LEN_DATA_0: begin
                     rdata <= int_strm_len[15:0];
                 end
@@ -251,7 +235,6 @@ assign ap_start      = int_ap_start;
 assign task_ap_done  = (ap_done && !auto_restart_status) || auto_restart_done;
 assign task_ap_ready = ap_ready && !int_auto_restart;
 assign ap_continue   = int_ap_continue || auto_restart_status;
-assign edges         = int_edges;
 assign strm_len      = int_strm_len;
 // int_interrupt
 always @(posedge ACLK) begin
@@ -403,26 +386,6 @@ always @(posedge ACLK) begin
             int_isr[1] <= 1'b1;
         else if (ar_hs && raddr == ADDR_ISR)
             int_isr[1] <= 1'b0; // clear on read
-    end
-end
-
-// int_edges[31:0]
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_edges[31:0] <= 0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_EDGES_DATA_0)
-            int_edges[31:0] <= (WDATA[31:0] & wmask) | (int_edges[31:0] & ~wmask);
-    end
-end
-
-// int_edges[63:32]
-always @(posedge ACLK) begin
-    if (ARESET)
-        int_edges[63:32] <= 0;
-    else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_EDGES_DATA_1)
-            int_edges[63:32] <= (WDATA[31:0] & wmask) | (int_edges[63:32] & ~wmask);
     end
 end
 

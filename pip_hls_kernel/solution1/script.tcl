@@ -9,10 +9,10 @@ add_files pip_kernel.cpp
 add_files -tb test_pip_kernel.cpp -cflags "-Wno-unknown-pragmas" -csimflags "-Wno-unknown-pragmas"
 open_solution "solution1" -flow_target vitis
 set_part {xczu9eg-ffvb1156-2-e}
-create_clock -period 10 -name default
+create_clock -period 5 -name default
 config_interface -default_slave_interface s_axilite -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512
 config_rtl -register_reset_num 3
-config_export -format xo
+config_export -format xo -rtl verilog
 source "./pip_hls_kernel/solution1/directives.tcl"
 csim_design
 csynth_design

@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 # Memory (RAM/ROM)  definition:
-set ID 20
+set ID 18
 set hasByteEnable 0
 set MemName pip_kernel_div_table_V_RAM_AUTO_1R1W
 set CoreName ap_simcore_mem
@@ -79,12 +79,6 @@ if {[info proc ::AESL_LIB_VIRTEX::xil_gen_RAM] == "::AESL_LIB_VIRTEX::xil_gen_RA
 }
 
 
-set name pip_kernel_gmem_m_axi
-if {${::AESL::PGuard_rtl_comp_handler}} {
-	::AP::rtl_comp_handler $name BINDTYPE {interface} TYPE {adapter} IMPL {m_axi}
-}
-
-
 # clear list
 if {${::AESL::PGuard_autoexp_gen}} {
     cg_default_interface_gen_dc_begin
@@ -94,21 +88,13 @@ if {${::AESL::PGuard_autoexp_gen}} {
 
 set axilite_register_dict [dict create]
 set port_control {
-edges { 
-	dir I
-	width 64
-	depth 1
-	mode ap_none
-	offset 16
-	offset_end 27
-}
 strm_len { 
 	dir I
 	width 16
 	depth 1
 	mode ap_none
-	offset 28
-	offset_end 35
+	offset 16
+	offset_end 23
 }
 ap_start { }
 ap_done { }
@@ -125,7 +111,7 @@ dict set axilite_register_dict control $port_control
 if {${::AESL::PGuard_simmodel_gen}} {
 	if {[info proc ::AESL_LIB_XILADAPTER::s_axilite_gen] == "::AESL_LIB_XILADAPTER::s_axilite_gen"} {
 		eval "::AESL_LIB_XILADAPTER::s_axilite_gen { \
-			id 21 \
+			id 19 \
 			corename pip_kernel_control_axilite \
 			name pip_kernel_control_s_axi \
 			ports {$port_control} \
@@ -149,7 +135,7 @@ if {${::AESL::PGuard_rtl_comp_handler}} {
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::native_axis_add] == "::AESL_LIB_XILADAPTER::native_axis_add"} {
 eval "::AESL_LIB_XILADAPTER::native_axis_add { \
-    id 23 \
+    id 20 \
     name out_r \
     reset_level 0 \
     sync_rst true \
@@ -168,7 +154,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::native_axis_add] == "::AESL_LIB_XILADAPTER::native_axis_add"} {
 eval "::AESL_LIB_XILADAPTER::native_axis_add { \
-    id 24 \
+    id 21 \
     name points \
     reset_level 0 \
     sync_rst true \
@@ -234,7 +220,7 @@ if {${::AESL::PGuard_autoexp_gen}} {
 
 
 # RegSlice definition:
-set ID 25
+set ID 22
 set RegSliceName pip_kernel_regslice_both
 set RegSliceInstName pip_kernel_regslice_both_U
 set CoreName ap_simcore_pip_kernel_regslice_both
@@ -257,7 +243,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_regSlice, check you
 
 
 # RegSlice definition:
-set ID 26
+set ID 23
 set RegSliceName pip_kernel_regslice_both
 set RegSliceInstName pip_kernel_regslice_both_U
 set CoreName ap_simcore_pip_kernel_regslice_both

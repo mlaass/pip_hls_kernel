@@ -4,7 +4,7 @@
 == Synthesis Summary Report of 'pip_kernel'
 ================================================================
 + General Information: 
-    * Date:           Mon May  2 12:37:38 2022
+    * Date:           Tue May 31 13:30:22 2022
     * Version:        2022.1 (Build 3526262 on Mon Apr 18 15:48:16 MDT 2022)
     * Project:        pip_hls_kernel
     * Solution:       solution1 (Vitis Kernel Flow Target)
@@ -15,35 +15,27 @@
 + Performance & Resource Estimates: 
     
     PS: '+' for module; 'o' for loop; '*' for dataflow
-    +--------------------------------------------+------+------+----------+-----------+----------+----------+-------+----------+---------+---------+------------+------------+-----+
-    |                   Modules                  | Issue|      | Latency  |  Latency  | Iteration|          |  Trip |          |         |         |            |            |     |
-    |                   & Loops                  | Type | Slack| (cycles) |    (ns)   |  Latency | Interval | Count | Pipelined|  BRAM   |   DSP   |     FF     |     LUT    | URAM|
-    +--------------------------------------------+------+------+----------+-----------+----------+----------+-------+----------+---------+---------+------------+------------+-----+
-    |+ pip_kernel                                |     -|  0.00|  16778078|  1.678e+08|         -|  16778079|      -|        no|  1 (~0%)|  2 (~0%)|  10302 (1%)|  17510 (6%)|    -|
-    | + pip_kernel_Pipeline_LOOP_INIT_DIV_TABLE  |     -|  3.44|      1039|  1.039e+04|         -|      1039|      -|        no|        -|        -|   956 (~0%)|   814 (~0%)|    -|
-    |  o LOOP_INIT_DIV_TABLE                     |     -|  7.30|      1037|  1.037e+04|        15|         1|   1024|       yes|        -|        -|           -|           -|    -|
-    | o LOOP_STREAM                              |     -|  7.30|  16777036|  1.678e+08|       333|       256|  65535|       yes|        -|        -|           -|           -|    -|
-    |  + pip_edges                               |     -|  0.00|       330|  3.300e+03|         -|       256|      -|       yes|        -|  2 (~0%)|   8136 (1%)|  13458 (4%)|    -|
-    |   + pip_crossing2                          |     -|  2.88|         7|     70.000|         -|         8|      -|       yes|        -|  2 (~0%)|   102 (~0%)|   602 (~0%)|    -|
-    +--------------------------------------------+------+------+----------+-----------+----------+----------+-------+----------+---------+---------+------------+------------+-----+
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+---------+---------+------------+------------+-----+
+    |                   Modules                  | Issue|      | Latency |  Latency  | Iteration|         |  Trip |          |         |         |            |            |     |
+    |                   & Loops                  | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count | Pipelined|  BRAM   |   DSP   |     FF     |     LUT    | URAM|
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+---------+---------+------------+------------+-----+
+    |+ pip_kernel                                |     -|  0.25|  1115137|  5.576e+06|         -|  1115138|      -|        no|  1 (~0%)|  2 (~0%)|  1430 (~0%)|  1845 (~0%)|    -|
+    | + pip_kernel_Pipeline_LOOP_INIT_DIV_TABLE  |     -|  1.03|     1040|  5.200e+03|         -|     1040|      -|        no|        -|        -|   976 (~0%)|   814 (~0%)|    -|
+    |  o LOOP_INIT_DIV_TABLE                     |     -|  3.65|     1038|  5.190e+03|        16|        1|   1024|       yes|        -|        -|           -|           -|    -|
+    | o LOOP_STREAM                              |     -|  3.65|  1114094|  5.570e+06|        17|       17|  65535|       yes|        -|        -|           -|           -|    -|
+    |  + pip_edges                               |     -|  0.25|       14|     70.000|         -|       15|      -|       yes|        -|  2 (~0%)|   319 (~0%)|   729 (~0%)|    -|
+    |   + pip_crossing2                          |     -|  0.25|       10|     50.000|         -|       11|      -|       yes|        -|  2 (~0%)|   194 (~0%)|   618 (~0%)|    -|
+    +--------------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+---------+---------+------------+------------+-----+
 
 
 ================================================================
 == HW Interfaces
 ================================================================
-* M_AXI
-+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
-| Interface  | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
-|            | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
-+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
-| m_axi_gmem | 32 -> 64   | 64            | 64      | slave  | 0        | 512       | 16           | 16           | 16          | 16          |
-+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
-
 * S_AXILITE Interfaces
 +---------------+------------+---------------+--------+----------+
 | Interface     | Data Width | Address Width | Offset | Register |
 +---------------+------------+---------------+--------+----------+
-| s_axi_control | 32         | 6             | 16     | 0        |
+| s_axi_control | 32         | 5             | 16     | 0        |
 +---------------+------------+---------------+--------+----------+
 
 * S_AXILITE Registers
@@ -54,9 +46,7 @@
 | s_axi_control | GIER     | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                                           |
 | s_axi_control | IP_IER   | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                                      |
 | s_axi_control | IP_ISR   | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                                      |
-| s_axi_control | edges_1  | 0x10   | 32    | W      | Data signal of edges             |                                                                                    |
-| s_axi_control | edges_2  | 0x14   | 32    | W      | Data signal of edges             |                                                                                    |
-| s_axi_control | strm_len | 0x1c   | 32    | W      | Data signal of strm_len          |                                                                                    |
+| s_axi_control | strm_len | 0x10   | 32    | W      | Data signal of strm_len          |                                                                                    |
 +---------------+----------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------------------+
 
 * AXIS
@@ -66,6 +56,14 @@
 | out_r     | both          | 8     | 1      | 1      |
 | points    | both          | 24    | 1      | 1      |
 +-----------+---------------+-------+--------+--------+
+
+* BRAM
++-------------+------------+---------------+
+| Interface   | Data Width | Address Width |
++-------------+------------+---------------+
+| edges_PORTA | 32         | 32            |
+| edges_PORTB | 32         | 32            |
++-------------+------------+---------------+
 
 * TOP LEVEL CONTROL
 +-----------+---------------+-----------+
@@ -92,16 +90,15 @@
 +----------+-----------+-------------------------------------------------+
 
 * SW-to-HW Mapping
-+----------+---------------+-----------+----------+------------------------------------+
-| Argument | HW Interface  | HW Type   | HW Usage | HW Info                            |
-+----------+---------------+-----------+----------+------------------------------------+
-| out      | out_r         | interface |          |                                    |
-| points   | points        | interface |          |                                    |
-| edges    | m_axi_gmem    | interface |          |                                    |
-| edges    | s_axi_control | register  | offset   | name=edges_1 offset=0x10 range=32  |
-| edges    | s_axi_control | register  | offset   | name=edges_2 offset=0x14 range=32  |
-| strm_len | s_axi_control | register  |          | name=strm_len offset=0x1c range=32 |
-+----------+---------------+-----------+----------+------------------------------------+
++----------+---------------+-----------+------------------------------------+
+| Argument | HW Interface  | HW Type   | HW Info                            |
++----------+---------------+-----------+------------------------------------+
+| out      | out_r         | interface |                                    |
+| points   | points        | interface |                                    |
+| edges    | edges_PORTA   | interface |                                    |
+| edges    | edges_PORTB   | interface |                                    |
+| strm_len | s_axi_control | register  | name=strm_len offset=0x10 range=32 |
++----------+---------------+-----------+------------------------------------+
 
 
 ================================================================
@@ -109,130 +106,31 @@
 ================================================================
  Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
 
-* Inferred Bursts and Widening Missed
-+--------------+----------+------------------------------+-----------------------+
-| HW Interface | Variable | Problem                      | Location              |
-+--------------+----------+------------------------------+-----------------------+
-| m_axi_gmem   | edges    | Bursting is impacted by call | pip_kernel.cpp:110:34 |
-+--------------+----------+------------------------------+-----------------------+
-
+  No burst in design
 
 ================================================================
 == Bind Op Report
 ================================================================
-+--------------------------------------------+-----+--------+--------------+-----+--------+---------+
-| Name                                       | DSP | Pragma | Variable     | Op  | Impl   | Latency |
-+--------------------------------------------+-----+--------+--------------+-----+--------+---------+
-| + pip_kernel                               | 2   |        |              |     |        |         |
-|   i_fu_151_p2                              | -   |        | i            | add | fabric | 0       |
-|  + pip_kernel_Pipeline_LOOP_INIT_DIV_TABLE | 0   |        |              |     |        |         |
-|    i_fu_91_p2                              | -   |        | i            | add | fabric | 0       |
-|  + pip_edges                               | 2   |        |              |     |        |         |
-|    add_ln110_fu_1009_p2                    | -   |        | add_ln110    | add | fabric | 0       |
-|    add_ln110_1_fu_1035_p2                  | -   |        | add_ln110_1  | add | fabric | 0       |
-|    add_ln110_2_fu_1060_p2                  | -   |        | add_ln110_2  | add | fabric | 0       |
-|    add_ln110_3_fu_1085_p2                  | -   |        | add_ln110_3  | add | fabric | 0       |
-|    add_ln110_4_fu_1110_p2                  | -   |        | add_ln110_4  | add | fabric | 0       |
-|    add_ln110_5_fu_1135_p2                  | -   |        | add_ln110_5  | add | fabric | 0       |
-|    add_ln110_6_fu_1160_p2                  | -   |        | add_ln110_6  | add | fabric | 0       |
-|    add_ln110_7_fu_1185_p2                  | -   |        | add_ln110_7  | add | fabric | 0       |
-|    add_ln110_8_fu_1210_p2                  | -   |        | add_ln110_8  | add | fabric | 0       |
-|    add_ln110_9_fu_1235_p2                  | -   |        | add_ln110_9  | add | fabric | 0       |
-|    add_ln110_10_fu_1260_p2                 | -   |        | add_ln110_10 | add | fabric | 0       |
-|    add_ln110_11_fu_1285_p2                 | -   |        | add_ln110_11 | add | fabric | 0       |
-|    add_ln110_12_fu_1310_p2                 | -   |        | add_ln110_12 | add | fabric | 0       |
-|    add_ln110_13_fu_1335_p2                 | -   |        | add_ln110_13 | add | fabric | 0       |
-|    add_ln110_14_fu_1360_p2                 | -   |        | add_ln110_14 | add | fabric | 0       |
-|    add_ln110_15_fu_1385_p2                 | -   |        | add_ln110_15 | add | fabric | 0       |
-|    add_ln110_16_fu_1410_p2                 | -   |        | add_ln110_16 | add | fabric | 0       |
-|    add_ln110_17_fu_1435_p2                 | -   |        | add_ln110_17 | add | fabric | 0       |
-|    add_ln110_18_fu_1460_p2                 | -   |        | add_ln110_18 | add | fabric | 0       |
-|    add_ln110_19_fu_1485_p2                 | -   |        | add_ln110_19 | add | fabric | 0       |
-|    add_ln110_20_fu_1510_p2                 | -   |        | add_ln110_20 | add | fabric | 0       |
-|    add_ln110_21_fu_1535_p2                 | -   |        | add_ln110_21 | add | fabric | 0       |
-|    add_ln110_22_fu_1560_p2                 | -   |        | add_ln110_22 | add | fabric | 0       |
-|    add_ln110_23_fu_1585_p2                 | -   |        | add_ln110_23 | add | fabric | 0       |
-|    add_ln110_24_fu_1610_p2                 | -   |        | add_ln110_24 | add | fabric | 0       |
-|    add_ln110_25_fu_1635_p2                 | -   |        | add_ln110_25 | add | fabric | 0       |
-|    add_ln110_26_fu_1660_p2                 | -   |        | add_ln110_26 | add | fabric | 0       |
-|    add_ln110_27_fu_1685_p2                 | -   |        | add_ln110_27 | add | fabric | 0       |
-|    add_ln110_28_fu_1710_p2                 | -   |        | add_ln110_28 | add | fabric | 0       |
-|    add_ln110_29_fu_1735_p2                 | -   |        | add_ln110_29 | add | fabric | 0       |
-|    add_ln110_30_fu_1760_p2                 | -   |        | add_ln110_30 | add | fabric | 0       |
-|    add_ln110_31_fu_1785_p2                 | -   |        | add_ln110_31 | add | fabric | 0       |
-|    add_ln110_32_fu_1810_p2                 | -   |        | add_ln110_32 | add | fabric | 0       |
-|    add_ln110_33_fu_1835_p2                 | -   |        | add_ln110_33 | add | fabric | 0       |
-|    add_ln110_34_fu_1860_p2                 | -   |        | add_ln110_34 | add | fabric | 0       |
-|    add_ln110_35_fu_1885_p2                 | -   |        | add_ln110_35 | add | fabric | 0       |
-|    add_ln110_36_fu_1910_p2                 | -   |        | add_ln110_36 | add | fabric | 0       |
-|    add_ln110_37_fu_1935_p2                 | -   |        | add_ln110_37 | add | fabric | 0       |
-|    add_ln110_38_fu_1960_p2                 | -   |        | add_ln110_38 | add | fabric | 0       |
-|    add_ln110_39_fu_1985_p2                 | -   |        | add_ln110_39 | add | fabric | 0       |
-|    add_ln110_40_fu_2010_p2                 | -   |        | add_ln110_40 | add | fabric | 0       |
-|    add_ln110_41_fu_2035_p2                 | -   |        | add_ln110_41 | add | fabric | 0       |
-|    add_ln110_42_fu_2060_p2                 | -   |        | add_ln110_42 | add | fabric | 0       |
-|    add_ln110_43_fu_2085_p2                 | -   |        | add_ln110_43 | add | fabric | 0       |
-|    add_ln110_44_fu_2110_p2                 | -   |        | add_ln110_44 | add | fabric | 0       |
-|    add_ln110_45_fu_2135_p2                 | -   |        | add_ln110_45 | add | fabric | 0       |
-|    add_ln110_46_fu_2160_p2                 | -   |        | add_ln110_46 | add | fabric | 0       |
-|    add_ln110_47_fu_2185_p2                 | -   |        | add_ln110_47 | add | fabric | 0       |
-|    add_ln110_48_fu_2210_p2                 | -   |        | add_ln110_48 | add | fabric | 0       |
-|    add_ln110_49_fu_2235_p2                 | -   |        | add_ln110_49 | add | fabric | 0       |
-|    add_ln110_50_fu_2260_p2                 | -   |        | add_ln110_50 | add | fabric | 0       |
-|    add_ln110_51_fu_2285_p2                 | -   |        | add_ln110_51 | add | fabric | 0       |
-|    add_ln110_52_fu_2310_p2                 | -   |        | add_ln110_52 | add | fabric | 0       |
-|    add_ln110_53_fu_2335_p2                 | -   |        | add_ln110_53 | add | fabric | 0       |
-|    add_ln110_54_fu_2360_p2                 | -   |        | add_ln110_54 | add | fabric | 0       |
-|    add_ln110_55_fu_2385_p2                 | -   |        | add_ln110_55 | add | fabric | 0       |
-|    add_ln110_56_fu_2410_p2                 | -   |        | add_ln110_56 | add | fabric | 0       |
-|    add_ln110_57_fu_2435_p2                 | -   |        | add_ln110_57 | add | fabric | 0       |
-|    add_ln110_58_fu_2460_p2                 | -   |        | add_ln110_58 | add | fabric | 0       |
-|    add_ln110_59_fu_2485_p2                 | -   |        | add_ln110_59 | add | fabric | 0       |
-|    add_ln110_60_fu_2510_p2                 | -   |        | add_ln110_60 | add | fabric | 0       |
-|    add_ln110_61_fu_2535_p2                 | -   |        | add_ln110_61 | add | fabric | 0       |
-|    add_ln110_62_fu_2550_p2                 | -   |        | add_ln110_62 | add | fabric | 0       |
-|    add_ln886_fu_3404_p2                    | -   |        | add_ln886    | add | fabric | 0       |
-|    add_ln886_1_fu_3414_p2                  | -   |        | add_ln886_1  | add | fabric | 0       |
-|    add_ln886_2_fu_3424_p2                  | -   |        | add_ln886_2  | add | fabric | 0       |
-|    add_ln886_3_fu_3434_p2                  | -   |        | add_ln886_3  | add | fabric | 0       |
-|    add_ln886_4_fu_3444_p2                  | -   |        | add_ln886_4  | add | fabric | 0       |
-|    add_ln886_5_fu_3454_p2                  | -   |        | add_ln886_5  | add | fabric | 0       |
-|    add_ln886_6_fu_3464_p2                  | -   |        | add_ln886_6  | add | fabric | 0       |
-|    add_ln886_7_fu_3474_p2                  | -   |        | add_ln886_7  | add | fabric | 0       |
-|    add_ln886_8_fu_3484_p2                  | -   |        | add_ln886_8  | add | fabric | 0       |
-|    add_ln886_9_fu_3494_p2                  | -   |        | add_ln886_9  | add | fabric | 0       |
-|    add_ln886_10_fu_3504_p2                 | -   |        | add_ln886_10 | add | fabric | 0       |
-|    add_ln886_11_fu_3514_p2                 | -   |        | add_ln886_11 | add | fabric | 0       |
-|    add_ln886_12_fu_3524_p2                 | -   |        | add_ln886_12 | add | fabric | 0       |
-|    add_ln886_13_fu_3534_p2                 | -   |        | add_ln886_13 | add | fabric | 0       |
-|    add_ln886_14_fu_3544_p2                 | -   |        | add_ln886_14 | add | fabric | 0       |
-|    add_ln886_15_fu_3554_p2                 | -   |        | add_ln886_15 | add | fabric | 0       |
-|    add_ln886_16_fu_3564_p2                 | -   |        | add_ln886_16 | add | fabric | 0       |
-|    add_ln886_17_fu_3574_p2                 | -   |        | add_ln886_17 | add | fabric | 0       |
-|    add_ln886_18_fu_3584_p2                 | -   |        | add_ln886_18 | add | fabric | 0       |
-|    add_ln886_19_fu_3594_p2                 | -   |        | add_ln886_19 | add | fabric | 0       |
-|    add_ln886_20_fu_3604_p2                 | -   |        | add_ln886_20 | add | fabric | 0       |
-|    add_ln886_21_fu_3614_p2                 | -   |        | add_ln886_21 | add | fabric | 0       |
-|    add_ln886_22_fu_3624_p2                 | -   |        | add_ln886_22 | add | fabric | 0       |
-|    add_ln886_23_fu_3634_p2                 | -   |        | add_ln886_23 | add | fabric | 0       |
-|    add_ln886_24_fu_3644_p2                 | -   |        | add_ln886_24 | add | fabric | 0       |
-|    add_ln886_25_fu_3654_p2                 | -   |        | add_ln886_25 | add | fabric | 0       |
-|    add_ln886_26_fu_3664_p2                 | -   |        | add_ln886_26 | add | fabric | 0       |
-|    add_ln886_27_fu_3674_p2                 | -   |        | add_ln886_27 | add | fabric | 0       |
-|    add_ln886_28_fu_3684_p2                 | -   |        | add_ln886_28 | add | fabric | 0       |
-|    add_ln886_29_fu_3694_p2                 | -   |        | add_ln886_29 | add | fabric | 0       |
-|    ap_return                               | -   |        | acc_V        | add | fabric | 0       |
-|   + pip_crossing2                          | 2   |        |              |     |        |         |
-|     ret_V_6_fu_161_p2                      | -   |        | ret_V_6      | sub | fabric | 0       |
-|     ret_V_7_fu_225_p2                      | -   |        | ret_V_7      | sub | fabric | 0       |
-|     ret_V_1_fu_313_p2                      | -   |        | ret_V_1      | add | fabric | 0       |
-|     mul_mul_18s_18s_36_4_1_U4              | 1   |        | r_V          | mul | dsp48  | 3       |
-|     vt_V_fu_381_p2                         | -   |        | vt_V         | add | fabric | 0       |
-|     am_submul_18s_18s_18s_37_4_1_U5        | 1   |        | ret_V_3      | sub | dsp48  | 3       |
-|     am_submul_18s_18s_18s_37_4_1_U5        | 1   |        | r_V_4        | mul | dsp48  | 3       |
-|     ret_V_8_fu_603_p2                      | -   |        | ret_V_8      | add | fabric | 0       |
-|     ix_V_4_fu_645_p2                       | -   |        | ix_V_4       | add | fabric | 0       |
-+--------------------------------------------+-----+--------+--------------+-----+--------+---------+
++--------------------------------------------+-----+--------+-----------+-----+--------+---------+
+| Name                                       | DSP | Pragma | Variable  | Op  | Impl   | Latency |
++--------------------------------------------+-----+--------+-----------+-----+--------+---------+
+| + pip_kernel                               | 2   |        |           |     |        |         |
+|   i_fu_128_p2                              | -   |        | i         | add | fabric | 0       |
+|  + pip_kernel_Pipeline_LOOP_INIT_DIV_TABLE | 0   |        |           |     |        |         |
+|    i_fu_91_p2                              | -   |        | i         | add | fabric | 0       |
+|  + pip_edges                               | 2   |        |           |     |        |         |
+|    ap_return                               | -   |        | add_ln886 | add | fabric | 0       |
+|   + pip_crossing2                          | 2   |        |           |     |        |         |
+|     ret_V_6_fu_161_p2                      | -   |        | ret_V_6   | sub | fabric | 0       |
+|     ret_V_7_fu_225_p2                      | -   |        | ret_V_7   | sub | fabric | 0       |
+|     ret_V_1_fu_313_p2                      | -   |        | ret_V_1   | add | fabric | 0       |
+|     mul_mul_18s_18s_36_4_1_U4              | 1   |        | r_V       | mul | dsp48  | 3       |
+|     vt_V_fu_380_p2                         | -   |        | vt_V      | add | fabric | 0       |
+|     am_submul_18s_18s_18s_37_4_1_U5        | 1   |        | ret_V_3   | sub | dsp48  | 3       |
+|     am_submul_18s_18s_18s_37_4_1_U5        | 1   |        | r_V_4     | mul | dsp48  | 3       |
+|     ret_V_8_fu_575_p2                      | -   |        | ret_V_8   | add | fabric | 0       |
+|     ix_V_4_fu_680_p2                       | -   |        | ix_V_4    | add | fabric | 0       |
++--------------------------------------------+-----+--------+-----------+-----+--------+---------+
 
 
 ================================================================
@@ -249,21 +147,14 @@
 ================================================================
 == Pragma Report
 ================================================================
-* Pragmas with Warnings
-+-----------------+--------------------------------------+-----------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Type            | Options                              | Location                                | Messages                                                                                                                                                                                                                                                    |
-+-----------------+--------------------------------------+-----------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| array_partition | variable=edges dim=1 factor=32 block | pip_kernel.cpp:134 in pip_kernel, edges | Ignored unsupported array_partition pragma on variable 'edges_copy'. This can happen when applying a pragma on a function argument with mismatched array size w.r.t. its call site, or when providing a dim too deep on an array of insufficient dimension. |
-+-----------------+--------------------------------------+-----------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
 * Valid Pragma Syntax
-+----------------+---------------------------+----------------------------------+
-| Type           | Options                   | Location                         |
-+----------------+---------------------------+----------------------------------+
-| inline         |                           | pip_kernel.cpp:88 in pip_edges__ |
-| loop_merge     | force                     | pip_kernel.cpp:103 in pip_edges  |
-| loop_tripcount | avg=4095 max=65535 min=63 | pip_kernel.cpp:139 in pip_kernel |
-| pipeline       | II=256 rewind             | pip_kernel.cpp:141 in pip_kernel |
-+----------------+---------------------------+----------------------------------+
++----------------+---------------------------------+-----------------------------------------+
+| Type           | Options                         | Location                                |
++----------------+---------------------------------+-----------------------------------------+
+| loop_merge     | force                           | pip_kernel.cpp:130 in pip_edges         |
+| interface      | mode=bram port=edges            | pip_kernel.cpp:156 in pip_kernel, edges |
+| loop_tripcount | avg = 4095 max = 65535 min = 63 | pip_kernel.cpp:166 in pip_kernel        |
+| pipeline       | II = 256 rewind                 | pip_kernel.cpp:168 in pip_kernel        |
++----------------+---------------------------------+-----------------------------------------+
 
 

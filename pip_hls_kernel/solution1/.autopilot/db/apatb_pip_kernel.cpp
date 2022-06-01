@@ -30,8 +30,6 @@ using namespace sc_dt;
 #define AUTOTB_TVOUT_edges "../tv/cdatafile/c.pip_kernel.autotvout_edges.dat"
 #define AUTOTB_TVIN_strm_len "../tv/cdatafile/c.pip_kernel.autotvin_strm_len.dat"
 #define AUTOTB_TVOUT_strm_len "../tv/cdatafile/c.pip_kernel.autotvout_strm_len.dat"
-#define AUTOTB_TVIN_gmem "../tv/cdatafile/c.pip_kernel.autotvin_gmem.dat"
-#define AUTOTB_TVOUT_gmem "../tv/cdatafile/c.pip_kernel.autotvout_gmem.dat"
 
 #define INTER_TCL "../tv/cdatafile/ref.tcl"
 
@@ -40,7 +38,6 @@ using namespace sc_dt;
 #define AUTOTB_TVOUT_PC_points "../tv/rtldatafile/rtl.pip_kernel.autotvout_points.dat"
 #define AUTOTB_TVOUT_PC_edges "../tv/rtldatafile/rtl.pip_kernel.autotvout_edges.dat"
 #define AUTOTB_TVOUT_PC_strm_len "../tv/rtldatafile/rtl.pip_kernel.autotvout_strm_len.dat"
-#define AUTOTB_TVOUT_PC_gmem "../tv/rtldatafile/rtl.pip_kernel.autotvout_gmem.dat"
 
 
 static const bool little_endian()
@@ -274,7 +271,6 @@ INTER_TCL_FILE(const char* name) {
   points_depth = 0;
   edges_depth = 0;
   strm_len_depth = 0;
-  gmem_depth = 0;
   trans_num =0;
 }
 ~INTER_TCL_FILE() {
@@ -296,7 +292,6 @@ string get_depth_list () {
   total_list << "{points " << points_depth << "}\n";
   total_list << "{edges " << edges_depth << "}\n";
   total_list << "{strm_len " << strm_len_depth << "}\n";
-  total_list << "{gmem " << gmem_depth << "}\n";
   return total_list.str();
 }
 void set_num (int num , int* class_num) {
@@ -310,7 +305,6 @@ void set_string(std::string list, std::string* class_list) {
     int points_depth;
     int edges_depth;
     int strm_len_depth;
-    int gmem_depth;
     int trans_num;
   private:
     ofstream mFile;
@@ -461,7 +455,6 @@ aesl_fh.touch(WRAPC_STREAM_EGRESS_STATUS_out_r);
 aesl_fh.touch(WRAPC_STREAM_SIZE_IN_points);
 aesl_fh.touch(WRAPC_STREAM_INGRESS_STATUS_points);
 CodeState = DUMP_INPUTS;
-unsigned __xlx_offset_byte_param_edges = 0;
 std::vector<__cosim_s1__> __xlx_apatb_param_out_r_stream_buf;
 long __xlx_apatb_param_out_r_stream_buf_size = ((hls::stream<__cosim_s1__>*)__xlx_apatb_param_out_r)->size();
 std::vector<__cosim_s4__> __xlx_apatb_param_points_stream_buf;
@@ -472,44 +465,39 @@ std::vector<__cosim_s4__> __xlx_apatb_param_points_stream_buf;
     ((hls::stream<__cosim_s4__>*)__xlx_apatb_param_points)->write(__xlx_apatb_param_points_stream_buf[i]);
   }
 long __xlx_apatb_param_points_stream_buf_size = ((hls::stream<__cosim_s4__>*)__xlx_apatb_param_points)->size();
+unsigned __xlx_offset_byte_param_edges = 0;
 #ifdef USE_BINARY_TV_FILE
 {
-aesl_fh.touch(AUTOTB_TVIN_gmem, 'b');
-transaction<64> tr(32);
-__xlx_offset_byte_param_edges = 0*8;
-if (__xlx_apatb_param_edges) {
-  tr.import<8>((char*)__xlx_apatb_param_edges, 32, 0);
+aesl_fh.touch(AUTOTB_TVIN_edges, 'b');
+transaction<18> tr(128);
+  __xlx_offset_byte_param_edges = 0*4;
+  if (__xlx_apatb_param_edges) {
+tr.import<4>((char*)__xlx_apatb_param_edges, 128, 0);
+  }
+aesl_fh.write(AUTOTB_TVIN_edges, tr.p, tr.tbytes);
 }
-aesl_fh.write(AUTOTB_TVIN_gmem, tr.p, tr.tbytes);
-tcl_file.set_num(32, &tcl_file.gmem_depth);
-}
+
+  tcl_file.set_num(128, &tcl_file.edges_depth);
 #else
-aesl_fh.touch(AUTOTB_TVIN_gmem);
-{
-aesl_fh.write(AUTOTB_TVIN_gmem, begin_str(AESL_transaction));
-__xlx_offset_byte_param_edges = 0*8;
-if (__xlx_apatb_param_edges) {
-for (size_t i = 0; i < 32; ++i) {
-unsigned char *pos = (unsigned char*)__xlx_apatb_param_edges + i * 8;
-std::string s = formatData(pos, 64);
-aesl_fh.write(AUTOTB_TVIN_gmem, s);
-}
-}
-tcl_file.set_num(32, &tcl_file.gmem_depth);
-aesl_fh.write(AUTOTB_TVIN_gmem, end_str());
-}
-#endif
 // print edges Transactions
 {
 aesl_fh.write(AUTOTB_TVIN_edges, begin_str(AESL_transaction));
 {
-auto *pos = (unsigned char*)&__xlx_offset_byte_param_edges;
-aesl_fh.write(AUTOTB_TVIN_edges, formatData(pos, 32));
+  __xlx_offset_byte_param_edges = 0*4;
+if (__xlx_apatb_param_edges) {
+for (size_t i = 0; i < 128; ++i) {
+unsigned char *pos = (unsigned char*)__xlx_apatb_param_edges + i * 4;
+std::string s = formatData(pos, 18);
+aesl_fh.write(AUTOTB_TVIN_edges, s);
 }
-  tcl_file.set_num(1, &tcl_file.edges_depth);
+}
+}
+
+  tcl_file.set_num(128, &tcl_file.edges_depth);
 aesl_fh.write(AUTOTB_TVIN_edges, end_str());
 }
 
+#endif
 // print strm_len Transactions
 {
 aesl_fh.write(AUTOTB_TVIN_strm_len, begin_str(AESL_transaction));

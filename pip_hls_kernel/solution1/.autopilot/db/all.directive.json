@@ -22,7 +22,7 @@
           "functionLabel": "",
           "id": "2",
           "sourceFile": "C:\/Users\/fpga\/workspace\/pip_hls_kernel\/pip_hls_kernel\/solution1\/csynth.tcl",
-          "sourceLine": "16",
+          "sourceLine": "17",
           "pragma": {
             "name": "TOP",
             "option": [{

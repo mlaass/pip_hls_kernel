@@ -16,26 +16,27 @@ target triple = "fpga64-xilinx-none"
 declare void @llvm.sideeffect() #0
 
 ; Function Attrs: noinline
-define void @apatb_pip_kernel_ir(%"class.hls::stream<ap_uint<8>, 0>"* noalias nocapture nonnull dereferenceable(1) %out, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias nocapture nonnull dereferenceable(4) %points, %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"* noalias nocapture nonnull readonly "fpga.decayed.dim.hint"="64" %edges, i16 zeroext %strm_len) local_unnamed_addr #1 {
+define void @apatb_pip_kernel_ir(%"class.hls::stream<ap_uint<8>, 0>"* noalias nocapture nonnull dereferenceable(1) %out, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias nocapture nonnull dereferenceable(4) %points, %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"* noalias nocapture nonnull readonly "fpga.decayed.dim.hint"="128" %edges, i16 zeroext %strm_len) local_unnamed_addr #1 {
 entry:
   %out_copy = alloca %"class.hls::stream<ap_uint<8>, 0>", align 512
-  call void @llvm.sideeffect() #9 [ "stream_interface"(%"class.hls::stream<ap_uint<8>, 0>"* %out_copy, i32 0) ]
+  call void @llvm.sideeffect() #8 [ "stream_interface"(%"class.hls::stream<ap_uint<8>, 0>"* %out_copy, i32 0) ]
   %points_copy = alloca %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>", align 512
-  call void @llvm.sideeffect() #10 [ "stream_interface"(%"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %points_copy, i32 0) ]
-  %edges_copy = alloca [64 x i32], align 512
-  %0 = bitcast %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"* %edges to [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]*
-  call fastcc void @copy_in(%"class.hls::stream<ap_uint<8>, 0>"* nonnull %out, %"class.hls::stream<ap_uint<8>, 0>"* nonnull align 512 %out_copy, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* nonnull %points, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* nonnull align 512 %points_copy, [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* nonnull %0, [64 x i32]* nonnull align 512 %edges_copy)
-  call void @apatb_pip_kernel_hw(%"class.hls::stream<ap_uint<8>, 0>"* %out_copy, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %points_copy, [64 x i32]* %edges_copy, i16 %strm_len)
-  call void @copy_back(%"class.hls::stream<ap_uint<8>, 0>"* %out, %"class.hls::stream<ap_uint<8>, 0>"* %out_copy, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %points, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %points_copy, [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %0, [64 x i32]* %edges_copy)
+  call void @llvm.sideeffect() #9 [ "stream_interface"(%"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %points_copy, i32 0) ]
+  %edges_copy = alloca [128 x i18], align 512
+  %0 = bitcast %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"* %edges to [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]*
+  call fastcc void @copy_in(%"class.hls::stream<ap_uint<8>, 0>"* nonnull %out, %"class.hls::stream<ap_uint<8>, 0>"* nonnull align 512 %out_copy, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* nonnull %points, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* nonnull align 512 %points_copy, [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* nonnull %0, [128 x i18]* nonnull align 512 %edges_copy)
+  %1 = getelementptr [128 x i18], [128 x i18]* %edges_copy, i32 0, i32 0
+  call void @apatb_pip_kernel_hw(%"class.hls::stream<ap_uint<8>, 0>"* %out_copy, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %points_copy, i18* %1, i16 %strm_len)
+  call void @copy_back(%"class.hls::stream<ap_uint<8>, 0>"* %out, %"class.hls::stream<ap_uint<8>, 0>"* %out_copy, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %points, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %points_copy, [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %0, [128 x i18]* %edges_copy)
   ret void
 }
 
 ; Function Attrs: argmemonly noinline
-define internal fastcc void @copy_in(%"class.hls::stream<ap_uint<8>, 0>"* noalias, %"class.hls::stream<ap_uint<8>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias readonly, [64 x i32]* noalias align 512 "fpga.caller.interfaces"="layout_transformed") unnamed_addr #2 {
+define internal fastcc void @copy_in(%"class.hls::stream<ap_uint<8>, 0>"* noalias, %"class.hls::stream<ap_uint<8>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias readonly, [128 x i18]* noalias align 512) unnamed_addr #2 {
 entry:
   call fastcc void @"onebyonecpy_hls.p0class.hls::stream<ap_uint<8>, 0>"(%"class.hls::stream<ap_uint<8>, 0>"* align 512 %1, %"class.hls::stream<ap_uint<8>, 0>"* %0)
   call fastcc void @"onebyonecpy_hls.p0class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"(%"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* align 512 %3, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %2)
-  call fastcc void @"onebyonecpy_hls.p0a64struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"([64 x i32]* align 512 %5, [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4)
+  call fastcc void @"onebyonecpy_hls.p0a128struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"([128 x i18]* align 512 %5, [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4)
   ret void
 }
 
@@ -122,10 +123,10 @@ ret:                                              ; preds = %empty
 }
 
 ; Function Attrs: argmemonly noinline norecurse
-define internal fastcc void @"onebyonecpy_hls.p0a64struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"([64 x i32]* noalias align 512 "fpga.caller.interfaces"="layout_transformed", [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias readonly "fpga.caller.interfaces"="layout_transformed") unnamed_addr #5 {
+define internal fastcc void @"onebyonecpy_hls.p0a128struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"([128 x i18]* noalias align 512, [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias readonly) unnamed_addr #5 {
 entry:
-  %2 = icmp eq [64 x i32]* %0, null
-  %3 = icmp eq [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %1, null
+  %2 = icmp eq [128 x i18]* %0, null
+  %3 = icmp eq [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %1, null
   %4 = or i1 %2, %3
   br i1 %4, label %ret, label %copy
 
@@ -134,15 +135,14 @@ copy:                                             ; preds = %entry
 
 for.loop:                                         ; preds = %for.loop, %copy
   %for.loop.idx7 = phi i64 [ 0, %copy ], [ %for.loop.idx.next, %for.loop ]
-  %src.addr.0.0.05 = getelementptr [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"], [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %1, i64 0, i64 %for.loop.idx7, i32 0, i32 0, i32 0
-  %5 = getelementptr [64 x i32], [64 x i32]* %0, i64 0, i64 %for.loop.idx7
+  %src.addr.0.0.05 = getelementptr [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"], [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %1, i64 0, i64 %for.loop.idx7, i32 0, i32 0, i32 0
+  %5 = getelementptr [128 x i18], [128 x i18]* %0, i64 0, i64 %for.loop.idx7
   %6 = bitcast i18* %src.addr.0.0.05 to i24*
   %7 = load i24, i24* %6
   %8 = trunc i24 %7 to i18
-  %9 = call i32 @_llvm.fpga.pack.none.i32.i18(i18 %8)
-  store i32 %9, i32* %5, align 4
+  store i18 %8, i18* %5, align 4
   %for.loop.idx.next = add nuw nsw i64 %for.loop.idx7, 1
-  %exitcond = icmp ne i64 %for.loop.idx.next, 64
+  %exitcond = icmp ne i64 %for.loop.idx.next, 128
   br i1 %exitcond, label %for.loop, label %ret
 
 ret:                                              ; preds = %for.loop, %entry
@@ -150,25 +150,19 @@ ret:                                              ; preds = %for.loop, %entry
 }
 
 ; Function Attrs: argmemonly noinline
-define internal fastcc void @copy_out(%"class.hls::stream<ap_uint<8>, 0>"* noalias, %"class.hls::stream<ap_uint<8>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias, [64 x i32]* noalias readonly align 512 "fpga.caller.interfaces"="layout_transformed") unnamed_addr #6 {
+define internal fastcc void @copy_out(%"class.hls::stream<ap_uint<8>, 0>"* noalias, %"class.hls::stream<ap_uint<8>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias, [128 x i18]* noalias readonly align 512) unnamed_addr #6 {
 entry:
   call fastcc void @"onebyonecpy_hls.p0class.hls::stream<ap_uint<8>, 0>"(%"class.hls::stream<ap_uint<8>, 0>"* %0, %"class.hls::stream<ap_uint<8>, 0>"* align 512 %1)
   call fastcc void @"onebyonecpy_hls.p0class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"(%"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %2, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* align 512 %3)
-  call fastcc void @"onebyonecpy_hls.p0a64struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>.56"([64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4, [64 x i32]* align 512 %5)
+  call fastcc void @"onebyonecpy_hls.p0a128struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>.54"([128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4, [128 x i18]* align 512 %5)
   ret void
 }
 
-; Function Attrs: alwaysinline nounwind readnone
-define internal i18 @_llvm.fpga.unpack.none.i18.i32(i32 %A) #7 {
-  %A.cast = trunc i32 %A to i18
-  ret i18 %A.cast
-}
-
 ; Function Attrs: argmemonly noinline norecurse
-define internal fastcc void @"onebyonecpy_hls.p0a64struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>.56"([64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias "fpga.caller.interfaces"="layout_transformed", [64 x i32]* noalias readonly align 512 "fpga.caller.interfaces"="layout_transformed") unnamed_addr #5 {
+define internal fastcc void @"onebyonecpy_hls.p0a128struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>.54"([128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias, [128 x i18]* noalias readonly align 512) unnamed_addr #5 {
 entry:
-  %2 = icmp eq [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %0, null
-  %3 = icmp eq [64 x i32]* %1, null
+  %2 = icmp eq [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %0, null
+  %3 = icmp eq [128 x i18]* %1, null
   %4 = or i1 %2, %3
   br i1 %4, label %ret, label %copy
 
@@ -177,42 +171,38 @@ copy:                                             ; preds = %entry
 
 for.loop:                                         ; preds = %for.loop, %copy
   %for.loop.idx7 = phi i64 [ 0, %copy ], [ %for.loop.idx.next, %for.loop ]
-  %5 = getelementptr [64 x i32], [64 x i32]* %1, i64 0, i64 %for.loop.idx7
-  %dst.addr.0.0.06 = getelementptr [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"], [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %0, i64 0, i64 %for.loop.idx7, i32 0, i32 0, i32 0
-  %6 = load i32, i32* %5, align 4
-  %7 = call i18 @_llvm.fpga.unpack.none.i18.i32(i32 %6)
-  store i18 %7, i18* %dst.addr.0.0.06, align 4
+  %5 = getelementptr [128 x i18], [128 x i18]* %1, i64 0, i64 %for.loop.idx7
+  %dst.addr.0.0.06 = getelementptr [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"], [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %0, i64 0, i64 %for.loop.idx7, i32 0, i32 0, i32 0
+  %6 = bitcast i18* %5 to i24*
+  %7 = load i24, i24* %6
+  %8 = trunc i24 %7 to i18
+  store i18 %8, i18* %dst.addr.0.0.06, align 4
   %for.loop.idx.next = add nuw nsw i64 %for.loop.idx7, 1
-  %exitcond = icmp ne i64 %for.loop.idx.next, 64
+  %exitcond = icmp ne i64 %for.loop.idx.next, 128
   br i1 %exitcond, label %for.loop, label %ret
 
 ret:                                              ; preds = %for.loop, %entry
   ret void
 }
 
-; Function Attrs: alwaysinline nounwind readnone
-define internal i32 @_llvm.fpga.pack.none.i32.i18(i18 %A) #7 {
-  %A.cast = zext i18 %A to i32
-  ret i32 %A.cast
-}
-
-declare void @apatb_pip_kernel_hw(%"class.hls::stream<ap_uint<8>, 0>"*, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"*, [64 x i32]*, i16)
+declare void @apatb_pip_kernel_hw(%"class.hls::stream<ap_uint<8>, 0>"*, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"*, i18*, i16)
 
 ; Function Attrs: argmemonly noinline
-define internal fastcc void @copy_back(%"class.hls::stream<ap_uint<8>, 0>"* noalias, %"class.hls::stream<ap_uint<8>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias, [64 x i32]* noalias readonly align 512 "fpga.caller.interfaces"="layout_transformed") unnamed_addr #6 {
+define internal fastcc void @copy_back(%"class.hls::stream<ap_uint<8>, 0>"* noalias, %"class.hls::stream<ap_uint<8>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* noalias align 512 "fpga.caller.interfaces"="layout_transformed", [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* noalias, [128 x i18]* noalias readonly align 512) unnamed_addr #6 {
 entry:
   call fastcc void @"onebyonecpy_hls.p0class.hls::stream<ap_uint<8>, 0>"(%"class.hls::stream<ap_uint<8>, 0>"* %0, %"class.hls::stream<ap_uint<8>, 0>"* align 512 %1)
   call fastcc void @"onebyonecpy_hls.p0class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"(%"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %2, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* align 512 %3)
   ret void
 }
 
-define void @pip_kernel_hw_stub_wrapper(%"class.hls::stream<ap_uint<8>, 0>"*, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"*, [64 x i32]*, i16) #8 {
+define void @pip_kernel_hw_stub_wrapper(%"class.hls::stream<ap_uint<8>, 0>"*, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"*, i18*, i16) #7 {
 entry:
-  %4 = alloca [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]
-  call void @copy_out(%"class.hls::stream<ap_uint<8>, 0>"* null, %"class.hls::stream<ap_uint<8>, 0>"* %0, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* null, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %1, [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4, [64 x i32]* %2)
-  %5 = bitcast [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4 to %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"*
-  call void @pip_kernel_hw_stub(%"class.hls::stream<ap_uint<8>, 0>"* %0, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %1, %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"* %5, i16 %3)
-  call void @copy_in(%"class.hls::stream<ap_uint<8>, 0>"* null, %"class.hls::stream<ap_uint<8>, 0>"* %0, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* null, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %1, [64 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4, [64 x i32]* %2)
+  %4 = alloca [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]
+  %5 = bitcast i18* %2 to [128 x i18]*
+  call void @copy_out(%"class.hls::stream<ap_uint<8>, 0>"* null, %"class.hls::stream<ap_uint<8>, 0>"* %0, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* null, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %1, [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4, [128 x i18]* %5)
+  %6 = bitcast [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4 to %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"*
+  call void @pip_kernel_hw_stub(%"class.hls::stream<ap_uint<8>, 0>"* %0, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %1, %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"* %6, i16 %3)
+  call void @copy_in(%"class.hls::stream<ap_uint<8>, 0>"* null, %"class.hls::stream<ap_uint<8>, 0>"* %0, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* null, %"class.hls::stream<ap_fixed<18, 10, AP_RND, AP_SAT, 0>, 0>"* %1, [128 x %"struct.ap_fixed<18, 10, AP_RND, AP_SAT, 0>"]* %4, [128 x i18]* %5)
   ret void
 }
 
@@ -237,10 +227,9 @@ attributes #3 = { argmemonly noinline "fpga.wrapper.func"="onebyonecpy_hls" }
 attributes #4 = { argmemonly noinline "fpga.wrapper.func"="streamcpy_hls" }
 attributes #5 = { argmemonly noinline norecurse "fpga.wrapper.func"="onebyonecpy_hls" }
 attributes #6 = { argmemonly noinline "fpga.wrapper.func"="copyout" }
-attributes #7 = { alwaysinline nounwind readnone }
-attributes #8 = { "fpga.wrapper.func"="stub" }
-attributes #9 = { inaccessiblememonly nounwind "xlx.port.bitwidth"="8" }
-attributes #10 = { inaccessiblememonly nounwind "xlx.port.bitwidth"="32" }
+attributes #7 = { "fpga.wrapper.func"="stub" }
+attributes #8 = { inaccessiblememonly nounwind "xlx.port.bitwidth"="8" }
+attributes #9 = { inaccessiblememonly nounwind "xlx.port.bitwidth"="32" }
 
 !llvm.dbg.cu = !{}
 !llvm.ident = !{!0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0, !0}

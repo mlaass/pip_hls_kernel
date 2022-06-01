@@ -15,7 +15,6 @@ set SynModuleInfo {
   {SRCNAME pip_kernel MODELNAME pip_kernel RTLNAME pip_kernel IS_TOP 1
     SUBMODULES {
       {MODELNAME pip_kernel_div_table_V_RAM_AUTO_1R1W RTLNAME pip_kernel_div_table_V_RAM_AUTO_1R1W BINDTYPE storage TYPE ram IMPL auto LATENCY 2 ALLOW_PRAGMA 1}
-      {MODELNAME pip_kernel_gmem_m_axi RTLNAME pip_kernel_gmem_m_axi BINDTYPE interface TYPE adapter IMPL m_axi}
       {MODELNAME pip_kernel_control_s_axi RTLNAME pip_kernel_control_s_axi BINDTYPE interface TYPE interface_s_axilite}
       {MODELNAME pip_kernel_regslice_both RTLNAME pip_kernel_regslice_both BINDTYPE interface TYPE interface_regslice INSTNAME pip_kernel_regslice_both_U}
     }

@@ -76,8 +76,8 @@ set RtlHierarchyInfo {[
 		"Protocol" : "ap_ctrl_hs",
 		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "0", "ap_idle" : "1", "real_start" : "0",
 		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
-		"II" : "8",
-		"VariableLatency" : "0", "ExactLatency" : "7", "EstimateLatencyMin" : "7", "EstimateLatencyMax" : "7",
+		"II" : "11",
+		"VariableLatency" : "0", "ExactLatency" : "10", "EstimateLatencyMin" : "10", "EstimateLatencyMax" : "10",
 		"Combinational" : "0",
 		"Datapath" : "0",
 		"ClockEnable" : "1",
@@ -99,19 +99,19 @@ set RtlHierarchyInfo {[
 
 set ArgLastReadFirstWriteLatency {
 	pip_crossing2 {
-		p_x {Type I LastRead 7 FirstWrite -1}
+		p_x {Type I LastRead 10 FirstWrite -1}
 		p_y {Type I LastRead 0 FirstWrite -1}
-		e1_x {Type I LastRead 4 FirstWrite -1}
+		e1_x {Type I LastRead 6 FirstWrite -1}
 		e1_y {Type I LastRead 0 FirstWrite -1}
-		e2_x {Type I LastRead 4 FirstWrite -1}
+		e2_x {Type I LastRead 6 FirstWrite -1}
 		e2_y {Type I LastRead 0 FirstWrite -1}
-		div_table_V {Type I LastRead 0 FirstWrite -1}}}
+		div_table_V {Type I LastRead 1 FirstWrite -1}}}
 
 set hasDtUnsupportedChannel 0
 
 set PerformanceInfo {[
-	{"Name" : "Latency", "Min" : "7", "Max" : "7"}
-	, {"Name" : "Interval", "Min" : "8", "Max" : "8"}
+	{"Name" : "Latency", "Min" : "10", "Max" : "10"}
+	, {"Name" : "Interval", "Min" : "11", "Max" : "11"}
 ]}
 
 set PipelineEnableSignalInfo {[

@@ -29,7 +29,7 @@ set DataType "int"
 set Port [list $PortName $Interface $DataType $Pointer $Dims $Const    $Volatile $ArrayOpt]
 lappend PortList $Port
 set PortName "edges"
-set BitWidth "64"
+set BitWidth "18"
 set ArrayOpt ""
 set Const "0"
 set Volatile "1"

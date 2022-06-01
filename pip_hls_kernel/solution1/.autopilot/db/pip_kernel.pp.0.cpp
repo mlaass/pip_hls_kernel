@@ -33740,13 +33740,15 @@ typedef ap_uint<8> uint_t;
 
 
 
-__attribute__((sdx_kernel("pip_kernel", 0))) void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> & points, fixed_t edges[64], uint16_t strm_len);
+__attribute__((sdx_kernel("pip_kernel", 0))) void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> & points, fixed_t edges[128], uint16_t strm_len);
 # 2 "pip_kernel.cpp" 2
 
 inline uint_t pip_crossing(fixed_t p_x, fixed_t p_y, fixed_t e1_x, fixed_t e1_y,
-                           fixed_t e2_x, fixed_t e2_y) {
+                           fixed_t e2_x, fixed_t e2_y)
+{
 
-  if (((e1_y <= p_y) && (e2_y > p_y)) || ((e1_y > p_y) && e2_y <= p_y)) {
+  if (((e1_y <= p_y) && (e2_y > p_y)) || ((e1_y > p_y) && e2_y <= p_y))
+  {
 
     fixed_t vt = (p_y - e1_y) / (e2_y - e1_y);
     fixed_t ix = e1_x + (vt * (e2_x - e1_x));
@@ -33756,120 +33758,96 @@ inline uint_t pip_crossing(fixed_t p_x, fixed_t p_y, fixed_t e1_x, fixed_t e1_y,
   return 0;
 }
 
-
 static fixed_t div_table[1024];
 
-void init_div_table(){
-   int i;
-   fixed_t start = - 1024 / 2;
-   LOOP_INIT_DIV_TABLE: for (i = 0; i < 1024; i++) {
-      fixed_t real_val = 1/ ((fixed_t)i + start);
-      div_table[i] = real_val;
-   }
+void init_div_table()
+{
+  int i;
+  fixed_t start = -1024 / 2;
+LOOP_INIT_DIV_TABLE:
+  for (i = 0; i < 1024; i++)
+  {
+    fixed_t real_val = 1 / ((fixed_t)i + start);
+    div_table[i] = real_val;
+  }
 }
 
-inline fixed_t div_lookup(fixed_t b){
- return div_table[(int) b];
+inline fixed_t div_lookup(fixed_t b)
+{
+  return div_table[(int)b];
 }
 
-inline fixed_t fast_div(fixed_t a, fixed_t b){
- fixed_t one_div_b = div_lookup(b);
- return a* one_div_b;
+inline fixed_t fast_div(fixed_t a, fixed_t b)
+{
+  fixed_t one_div_b = div_lookup(b);
+  return a * one_div_b;
 }
 
 uint_t pip_crossing2(fixed_t p_x, fixed_t p_y, fixed_t e1_x, fixed_t e1_y,
-                           fixed_t e2_x, fixed_t e2_y) {
- uint_t f1 =((e1_y <= p_y) && (e2_y > p_y)) || ((e1_y > p_y) && e2_y <= p_y)? 1 : 0;
+                     fixed_t e2_x, fixed_t e2_y)
+{
+  uint_t f1 = ((e1_y <= p_y) && (e2_y > p_y)) || ((e1_y > p_y) && e2_y <= p_y) ? 1 : 0;
 
 
-    fixed_t vt = fast_div((p_y - e1_y) , (e2_y - e1_y));
-    fixed_t ix = e1_x + (vt * (e2_x - e1_x));
-    uint_t f2 =(p_x < ix) ? 1 : 0;
-    return f1&f2;
+  fixed_t vt = fast_div((p_y - e1_y), (e2_y - e1_y));
+  fixed_t ix = e1_x + (vt * (e2_x - e1_x));
+  uint_t f2 = (p_x < ix) ? 1 : 0;
+  return f1 & f2;
 }
+# 110 "pip_kernel.cpp"
+inline uint_t pip_edges(fixed_t px, fixed_t py, fixed_t edges[128])
+{
+  uint8_t j, i;
+  uint_t res = 0;
+  bool acc[128] = {0};
+LOOP_PIP:
+  for (j = 0; j < 32; j++)
+  {
 
-inline uint_t pip_crossing3(fixed_t p_x, fixed_t p_y, fixed_t e1_x, fixed_t e1_y,
-                           fixed_t e2_x, fixed_t e2_y) {
+    fixed_t e1x = edges[j * 4 + 0];
+    fixed_t e1y = edges[j * 4 + 1];
+    fixed_t e2x = edges[j * 4 + 2];
+    fixed_t e2y = edges[j * 4 + 3];
 
- uint_t f1 =((e1_y <= p_y) && (e2_y > p_y)) || ((e1_y > p_y) && e2_y <= p_y)? 1 : 0;
+    acc[j] = pip_crossing2(px, py, e1x, e1y, e2x, e2y);
+  }
 
-
-    fixed_t vt = ((p_y - e1_y) / (e2_y - e1_y));
-    fixed_t ix = e1_x + (vt * (e2_x - e1_x));
-    uint_t f2 =(p_x < ix) ? 1 : 0;
-    return f1&f2;
-}
-# 84 "pip_kernel.cpp"
-inline uint_t pip_edges__(fixed_t px, fixed_t py, fixed_t edges_a[64], fixed_t edges_b[64]){
- uint8_t j;
- uint_t acc = 0;
-  LOOP_PIP: for (j = 0; j < 32; j++) {
-#pragma HLS INLINE
-
- fixed_t e1x = edges_a[j * 2 + 0];
-   fixed_t e1y = edges_a[j * 2 + 1];
-   fixed_t e2x = edges_b[j * 2 + 0];
-   fixed_t e2y = edges_b[j * 2 + 1];
-
-      acc += pip_crossing2(px,py,e1x,e1y,e2x,e2y);
-    }
-  return acc;
-}
-inline uint_t pip_edges(fixed_t px, fixed_t py, fixed_t edges[64]){
- uint8_t j;
- uint_t acc = 0;
-  LOOP_PIP: for (j = 0; j < 32; j++) {
+LOOP_PIP_SUM:
+  for (j = 0; j < 32; j++)
+  {
 #pragma HLS loop_merge force
- int k = (j+1)%32;
-   fixed_t e1x = edges[j * 2 + 0];
-   fixed_t e1y = edges[j * 2 + 1];
-   fixed_t e2x = edges[k * 2 + 0];
-   fixed_t e2y = edges[k * 2 + 1];
-
-      acc += pip_crossing2(px,py,e1x,e1y,e2x,e2y);
-    }
-  return acc;
+ res += acc[i] ? 1 : 0;
+  }
+  return res;
 }
-inline void pip_edges_out(hls::stream<uint_t> &out, fixed_t px, fixed_t py, fixed_t edges[64]){
- uint8_t j;
-
-  LOOP_PIP: for (j = 0; j < 32; j++) {
-
-   int k = (j+1)%32;
-   fixed_t e1x = edges[j * 2 + 0];
-   fixed_t e1y = edges[j * 2 + 1];
-   fixed_t e2x = edges[k * 2 + 0];
-   fixed_t e2y = edges[k * 2 + 1];
-
-      out<< pip_crossing2(px,py,e1x,e1y,e2x,e2y);
-    }
-
-}
-
-__attribute__((sdx_kernel("pip_kernel", 0))) void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> & points, fixed_t edges[64], uint16_t strm_len=64) {
-#line 16 "C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/csynth.tcl"
+# 154 "pip_kernel.cpp"
+__attribute__((sdx_kernel("pip_kernel", 0))) void pip_kernel(hls::stream<uint_t> &out, hls::stream<fixed_t> &points, fixed_t edges[128], uint16_t strm_len = 64)
+{
+#line 17 "C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/csynth.tcl"
 #pragma HLSDIRECTIVE TOP name=pip_kernel
-# 130 "pip_kernel.cpp"
+# 155 "pip_kernel.cpp"
 
 #line 6 "C:/Users/fpga/workspace/pip_hls_kernel/pip_hls_kernel/solution1/directives.tcl"
 #pragma HLSDIRECTIVE TOP name=pip_kernel
-# 130 "pip_kernel.cpp"
+# 155 "pip_kernel.cpp"
 
-  init_div_table();
+#pragma HLS INTERFACE mode=bram port=edges
+ init_div_table();
 
 
-#pragma HLS ARRAY_PARTITION variable=edges dim=1 factor=32 block
 
- int i ;
+  int i;
 
-LOOP_STREAM: for (i = 0; i < strm_len; i++) {
-#pragma HLS LOOP_TRIPCOUNT avg=4095 max=65535 min=63
+LOOP_STREAM:
+  for (i = 0; i < strm_len; i++)
+  {
+#pragma HLS LOOP_TRIPCOUNT avg = 4095 max = 65535 min = 63
 
-#pragma HLS PIPELINE II=256 rewind
+#pragma HLS PIPELINE II = 256 rewind
  fixed_t px, py;
- px = points.read();
- py = points.read();
+    px = points.read();
+    py = points.read();
 
- out <<pip_edges(px,py,edges);
+    out << pip_edges(px, py, edges);
   }
 }

@@ -5,6 +5,11 @@
                 <option name="name" value="pip_kernel"/>
             </pragma>
         </directive>
+        <directive functionName="pip_kernel" label="" functionLabel="">
+            <pragma name="TOP">
+                <option name="name" value="pip_kernel"/>
+            </pragma>
+        </directive>
     </sourceFile>
 </AutoPilot:ProjectResources>
 

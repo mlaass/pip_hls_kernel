@@ -89,8 +89,6 @@ void XPip_kernel_Continue(XPip_kernel *InstancePtr);
 void XPip_kernel_EnableAutoRestart(XPip_kernel *InstancePtr);
 void XPip_kernel_DisableAutoRestart(XPip_kernel *InstancePtr);
 
-void XPip_kernel_Set_edges(XPip_kernel *InstancePtr, u64 Data);
-u64 XPip_kernel_Get_edges(XPip_kernel *InstancePtr);
 void XPip_kernel_Set_strm_len(XPip_kernel *InstancePtr, u32 Data);
 u32 XPip_kernel_Get_strm_len(XPip_kernel *InstancePtr);
 

@@ -9,9 +9,9 @@
 <ProductFamily>zynquplus</ProductFamily>
 <Part>xczu9eg-ffvb1156-2-e</Part>
 <TopModelName>pip_crossing2</TopModelName>
-<TargetClockPeriod>10.00</TargetClockPeriod>
-<ClockUncertainty>2.70</ClockUncertainty>
-<TargetInitiationInterval>8</TargetInitiationInterval>
+<TargetClockPeriod>5.00</TargetClockPeriod>
+<ClockUncertainty>1.35</ClockUncertainty>
+<TargetInitiationInterval>256</TargetInitiationInterval>
 <FlowTarget>vitis</FlowTarget>
 </UserAssignments>
 
@@ -19,28 +19,28 @@
 <PipelineType>yes</PipelineType>
 <SummaryOfTimingAnalysis>
 <unit>ns</unit>
-<EstimatedClockPeriod>4.424</EstimatedClockPeriod>
+<EstimatedClockPeriod>3.396</EstimatedClockPeriod>
 </SummaryOfTimingAnalysis>
 <SummaryOfOverallLatency>
 <unit>clock cycles</unit>
-<Best-caseLatency>7</Best-caseLatency>
-<Average-caseLatency>7</Average-caseLatency>
-<Worst-caseLatency>7</Worst-caseLatency>
-<Best-caseRealTimeLatency>70.000 ns</Best-caseRealTimeLatency>
-<Average-caseRealTimeLatency>70.000 ns</Average-caseRealTimeLatency>
-<Worst-caseRealTimeLatency>70.000 ns</Worst-caseRealTimeLatency>
-<PipelineInitiationInterval>8</PipelineInitiationInterval>
-<PipelineDepth>8</PipelineDepth>
-<Interval-min>8</Interval-min>
-<Interval-max>8</Interval-max>
+<Best-caseLatency>10</Best-caseLatency>
+<Average-caseLatency>10</Average-caseLatency>
+<Worst-caseLatency>10</Worst-caseLatency>
+<Best-caseRealTimeLatency>50.000 ns</Best-caseRealTimeLatency>
+<Average-caseRealTimeLatency>50.000 ns</Average-caseRealTimeLatency>
+<Worst-caseRealTimeLatency>50.000 ns</Worst-caseRealTimeLatency>
+<PipelineInitiationInterval>11</PipelineInitiationInterval>
+<PipelineDepth>11</PipelineDepth>
+<Interval-min>11</Interval-min>
+<Interval-max>11</Interval-max>
 </SummaryOfOverallLatency>
 </PerformanceEstimates>
 
 <AreaEstimates>
 <Resources>
 <DSP>2</DSP>
-<FF>102</FF>
-<LUT>602</LUT>
+<FF>194</FF>
+<LUT>618</LUT>
 <BRAM_18K>0</BRAM_18K>
 <URAM>0</URAM>
 </Resources>

@@ -17,8 +17,8 @@ using namespace std;
 
 //! WHEN changing this change ii value in LOOP_STREAM
 #define N_EDGES 32
-// N_EDGES*2
-#define SZ_EDGES 64
+// N_EDGES*4
+#define SZ_EDGES 128
 
 #define DIV_TABLE_SZ 1024
 

@@ -84,25 +84,6 @@ void XPip_kernel_DisableAutoRestart(XPip_kernel *InstancePtr) {
     XPip_kernel_WriteReg(InstancePtr->Control_BaseAddress, XPIP_KERNEL_CONTROL_ADDR_AP_CTRL, 0);
 }
 
-void XPip_kernel_Set_edges(XPip_kernel *InstancePtr, u64 Data) {
-    Xil_AssertVoid(InstancePtr != NULL);
-    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    XPip_kernel_WriteReg(InstancePtr->Control_BaseAddress, XPIP_KERNEL_CONTROL_ADDR_EDGES_DATA, (u32)(Data));
-    XPip_kernel_WriteReg(InstancePtr->Control_BaseAddress, XPIP_KERNEL_CONTROL_ADDR_EDGES_DATA + 4, (u32)(Data >> 32));
-}
-
-u64 XPip_kernel_Get_edges(XPip_kernel *InstancePtr) {
-    u64 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XPip_kernel_ReadReg(InstancePtr->Control_BaseAddress, XPIP_KERNEL_CONTROL_ADDR_EDGES_DATA);
-    Data += (u64)XPip_kernel_ReadReg(InstancePtr->Control_BaseAddress, XPIP_KERNEL_CONTROL_ADDR_EDGES_DATA + 4) << 32;
-    return Data;
-}
-
 void XPip_kernel_Set_strm_len(XPip_kernel *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
